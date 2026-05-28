@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRACTURE FEST 2026 — Magazine Punk · Design Themes Atlas</title>
+<!--
+  SPECIMEN 15 · MAGAZINE PUNK · Invented family
+  Topic: music & arts festival landing page (FRACTURE FEST 2026, Rotterdam · Aug 14–16)
+  Axes — Structure: Mixed (grid violated on purpose) · Surface: Flat · Energy: Maximal/Loud
+  Hybrid logic — two parents:
+    A) Swiss editorial grid: a real underlying column grid, editorial serif + grotesk
+       mix, pull quotes, baseline discipline, restrained palette roots.
+    B) 1980s Memphis Group maximalism / punk-zine collage: overlapping rotated blocks,
+       clashing saturated colour, oversized cut-out type, sticker/tape motifs, squiggles,
+       zigzags, confetti. Controlled chaos — the grid is REAL but constantly violated.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#f4f0e6;            /* newsprint cream      */
+    --surface:#ffffff;       /* paper panel          */
+    --fg:#15110d;            /* ink                  */
+    --muted:#5b554c;         /* secondary text       */
+    --accent:#ff2d6b;        /* hot punk pink        */
+    --accent-2:#1f4cff;      /* memphis blue         */
+    --border:#15110d;        /* ink border           */
+    --radius:0px;            /* corner radius        */
+    --shadow:5px 5px 0 var(--border);
+    --font-display:"Times New Roman",Georgia,"Playfair Display",serif;
+    --font-body:"Helvetica Neue",Arial,sans-serif;
+    --space:8px;
+    --maxw:1180px;
+    /* extra theme vars */
+    --yellow:#ffd23f;
+    --teal:#1ec9b0;
+    --bw:3px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    /* faint dot-grid recalling the underlying Swiss grid */
+    background-image:radial-gradient(var(--border) .5px,transparent .5px);
+    background-size:26px 26px;background-position:-13px -13px;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-.01em;line-height:.96}
+  .grotesk{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.04em;font-weight:800}
+
+  .btn{
+    display:inline-block;font-family:var(--font-body);text-transform:uppercase;font-weight:800;
+    font-size:14px;letter-spacing:.05em;text-decoration:none;cursor:pointer;
+    padding:14px 24px;border:var(--bw) solid var(--border);background:var(--surface);
+    color:var(--fg);box-shadow:var(--shadow);transition:transform .08s,box-shadow .08s;
+  }
+  .btn:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:8px 8px 0 var(--border)}
+  .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--border)}
+  .btn--primary{background:var(--accent);color:#fff}
+  .btn--ghost{background:var(--yellow)}
+
+  /* sticker / tape motifs */
+  .tape{position:absolute;background:rgba(255,210,63,.85);border:1px dashed rgba(0,0,0,.35);
+    font-family:var(--font-body);font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.1em;padding:4px 14px;color:#15110d;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .sticker{display:inline-block;font-family:var(--font-body);font-weight:800;text-transform:uppercase;
+    font-size:12px;letter-spacing:.06em;padding:6px 12px;border:var(--bw) solid var(--border);
+    background:var(--teal);transform:rotate(-3deg)}
+
+  /* ---- nav ---- */
+  header{border-bottom:var(--bw) solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:-.03em;font-style:italic}
+  .logo b{font-family:var(--font-body);font-style:normal;font-weight:800;background:var(--accent);color:#fff;
+    padding:0 6px;transform:rotate(-2deg);display:inline-block}
+  .nav-links{display:flex;gap:26px;list-style:none;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+  .nav-links a{text-decoration:none}
+  .nav-links a:hover{background:var(--accent-2);color:#fff;padding:2px 4px;transform:rotate(2deg);display:inline-block}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 90px;border-bottom:var(--bw) solid var(--border);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:start;position:relative;z-index:2}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .eyebrow-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+  .hero h1{font-size:clamp(54px,12vw,140px);margin:6px 0 6px;text-transform:uppercase;font-weight:900}
+  .hero h1 .a{display:inline-block;transform:rotate(-3deg);background:var(--yellow);padding:0 8px;border:var(--bw) solid var(--border)}
+  .hero h1 .b{display:inline-block;color:var(--accent);font-style:italic;font-weight:700;text-transform:none}
+  .hero h1 .c{display:inline-block;transform:rotate(2deg) translateY(-6px);color:var(--accent-2)}
+  .hero h1 em{font-style:normal;background:var(--accent);color:#fff;padding:0 10px;display:inline-block;transform:rotate(-1.5deg)}
+  .hero .lede{font-family:var(--font-display);font-size:21px;max-width:30ch;margin:24px 0 26px;line-height:1.35}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  /* collage card — overlapping rotated blocks */
+  .collage{position:relative;min-height:340px}
+  .collage .blk{position:absolute;border:var(--bw) solid var(--border);box-shadow:var(--shadow);padding:16px}
+  .collage .b1{top:0;left:6%;width:62%;background:var(--accent-2);color:#fff;transform:rotate(-4deg);z-index:3}
+  .collage .b2{top:90px;right:0;width:58%;background:var(--surface);transform:rotate(5deg);z-index:4}
+  .collage .b3{bottom:0;left:0;width:55%;background:var(--teal);transform:rotate(3deg);z-index:2}
+  .collage .lbl{font-family:var(--font-body);font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  .collage .big{font-family:var(--font-display);font-weight:900;font-size:42px;line-height:.9;margin-top:4px}
+  /* memphis confetti shapes */
+  .confetti{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .confetti i{position:absolute;display:block}
+  .zig{width:80px;height:18px;background:
+    linear-gradient(135deg,var(--accent) 25%,transparent 25%) -10px 0/20px 20px,
+    linear-gradient(225deg,var(--accent) 25%,transparent 25%) -10px 0/20px 20px}
+  .squiggle{width:120px;height:30px}
+  .dotrow{width:90px;height:14px;background:radial-gradient(var(--accent-2) 40%,transparent 42%);background-size:18px 18px}
+
+  /* ---- social proof strip (ticker zine) ---- */
+  .strip{background:var(--fg);color:var(--bg);border-bottom:var(--bw) solid var(--border);overflow:hidden;white-space:nowrap}
+  .strip div{display:inline-block;padding:13px 0;font-family:var(--font-body);font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.05em;animation:scroll 26s linear infinite}
+  .strip span{margin:0 26px}
+  .strip span b{color:var(--accent)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---- section scaffold ---- */
+  section{padding:84px 0;border-bottom:var(--bw) solid var(--border);position:relative}
+  .eyebrow{font-family:var(--font-body);font-weight:800;text-transform:uppercase;color:var(--accent);font-size:13px;letter-spacing:.14em;margin-bottom:12px}
+  .sec-head h2{font-family:var(--font-display);font-weight:900;font-size:clamp(34px,6vw,64px);max-width:16ch;text-transform:uppercase;line-height:.95}
+  .sec-head h2 mark{background:var(--yellow);padding:0 6px}
+  .sec-head p{font-size:18px;max-width:46ch;margin-top:16px;color:var(--muted)}
+
+  /* ---- features (3 cards, rotated, violating the grid) ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:54px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{border:var(--bw) solid var(--border);background:var(--surface);padding:28px;box-shadow:var(--shadow);position:relative}
+  .card:nth-child(1){transform:rotate(-2deg)}
+  .card:nth-child(2){transform:rotate(1.5deg);background:var(--yellow)}
+  .card:nth-child(3){transform:rotate(-1deg)}
+  .card:hover{transform:rotate(0) translate(-3px,-3px);box-shadow:9px 9px 0 var(--border)}
+  .card .num{font-family:var(--font-display);font-weight:900;font-size:30px;background:var(--accent-2);color:#fff;display:inline-block;width:52px;height:52px;text-align:center;line-height:52px;border:var(--bw) solid var(--border);margin-bottom:16px}
+  .card:nth-child(2) .num{background:var(--accent)}
+  .card:nth-child(3) .num{background:var(--teal)}
+  .card h3{font-family:var(--font-display);font-weight:900;font-size:24px;margin-bottom:10px;text-transform:uppercase}
+  .card p{color:var(--muted)}
+
+  /* ---- showcase / line-up: editorial column grid, deliberately overlapped ---- */
+  .lineup{margin-top:54px;display:grid;grid-template-columns:repeat(12,1fr);gap:14px;position:relative}
+  @media(max-width:860px){.lineup{grid-template-columns:1fr}}
+  .act{border:var(--bw) solid var(--border);background:var(--surface);padding:20px 22px;box-shadow:var(--shadow)}
+  .act .day{font-family:var(--font-body);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.08em;color:var(--accent)}
+  .act h3{font-family:var(--font-display);font-weight:900;font-size:clamp(22px,3vw,34px);margin:4px 0 6px;text-transform:uppercase}
+  .act p{font-size:14px;color:var(--muted)}
+  .a1{grid-column:1/7;background:var(--accent);color:#fff;transform:rotate(-1.5deg);z-index:3}
+  .a1 .day,.a4 .day{color:#fff}
+  .a2{grid-column:6/13;margin-top:-22px;transform:rotate(1deg);z-index:4}
+  .a3{grid-column:1/6;transform:rotate(1.5deg)}
+  .a4{grid-column:5/13;margin-top:-14px;background:var(--accent-2);color:#fff;transform:rotate(-1deg);z-index:2}
+
+  /* ---- pull-quote / testimonial ---- */
+  .quote-wrap{position:relative}
+  .quote{background:var(--surface);border:var(--bw) solid var(--border);box-shadow:8px 8px 0 var(--accent);padding:48px;max-width:780px;margin:0 auto;position:relative;transform:rotate(-1deg)}
+  .quote:before{content:"\201C";position:absolute;top:-26px;left:18px;font-family:var(--font-display);font-weight:900;font-size:140px;color:var(--accent);line-height:1}
+  .quote p{font-family:var(--font-display);font-weight:700;font-style:italic;font-size:clamp(22px,3.6vw,36px);line-height:1.15}
+  .quote .who{margin-top:22px;font-family:var(--font-body);font-weight:800;text-transform:uppercase;font-size:13px;letter-spacing:.06em;color:var(--muted)}
+
+  /* ---- CTA band ---- */
+  .cta-band{background:var(--accent-2);color:#fff;text-align:center;border-bottom:var(--bw) solid var(--border)}
+  .cta-band h2{font-family:var(--font-display);font-weight:900;font-size:clamp(38px,7vw,84px);text-transform:uppercase;line-height:.9}
+  .cta-band h2 em{font-style:italic;color:var(--yellow)}
+  .ticket{display:inline-block;background:var(--surface);color:var(--fg);border:var(--bw) solid var(--border);box-shadow:8px 8px 0 var(--accent);padding:30px 44px;margin:32px 0 26px;transform:rotate(-1.5deg)}
+  .ticket .big{font-family:var(--font-display);font-weight:900;font-size:58px}
+  .ticket .big s{color:var(--muted);font-size:28px}
+
+  /* ---- footer + specimen ---- */
+  footer{background:var(--fg);color:var(--bg);padding:64px 0 28px;border:none}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-body);font-weight:800;text-transform:uppercase;font-size:12px;color:var(--accent);margin-bottom:14px;letter-spacing:.1em}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px;font-size:15px;opacity:.85}
+  .specimen{margin-top:48px;border:var(--bw) solid var(--bg);padding:22px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;font-size:13px}
+  .specimen .no{font-family:var(--font-display);font-weight:900;font-size:42px;color:var(--accent)}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .axes span{display:inline-block;border:1px solid var(--bg);padding:3px 8px;margin:2px;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr}}
+  .atlas-badge{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--accent);color:#fff;
+    border:var(--bw) solid var(--border);box-shadow:4px 4px 0 var(--yellow);font-family:var(--font-body);font-weight:800;
+    text-transform:uppercase;font-size:12px;padding:10px 14px;text-decoration:none;transform:rotate(-2deg)}
+  .atlas-badge:hover{background:var(--accent-2)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">Fracture<b>FEST</b></div>
+    <ul class="nav-links">
+      <li><a href="#lineup">Line-up</a></li>
+      <li><a href="#features">The Fest</a></li>
+      <li><a href="#voices">Voices</a></li>
+      <li><a href="#tickets">Tickets</a></li>
+    </ul>
+    <a href="#tickets" class="btn btn--primary">Get tickets →</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="confetti" aria-hidden="true">
+    <i class="zig" style="top:60px;left:4%;transform:rotate(8deg)"></i>
+    <i class="dotrow" style="top:200px;right:6%"></i>
+    <svg class="squiggle" style="position:absolute;bottom:80px;left:42%" viewBox="0 0 120 30" fill="none" stroke="#1ec9b0" stroke-width="6">
+      <path d="M2 15 Q 17 2 32 15 T 62 15 T 92 15 T 118 15"/>
+    </svg>
+    <svg style="position:absolute;top:30px;right:30%;transform:rotate(-12deg)" width="46" height="46" viewBox="0 0 46 46"><polygon points="23,2 28,18 44,18 31,28 36,44 23,34 10,44 15,28 2,18 18,18" fill="#ffd23f" stroke="#15110d" stroke-width="2"/></svg>
+  </div>
+  <span class="tape" style="top:24px;right:14%;transform:rotate(6deg)">3 days · 60 acts</span>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-row">
+        <span class="sticker">Rotterdam · Aug 14–16, 2026</span>
+        <span class="grotesk" style="font-size:13px;color:var(--accent)">★ 13th edition</span>
+      </div>
+      <h1><span class="a">FRAC</span><span class="c">TURE</span> <em>the</em> <span class="b">noise.</span></h1>
+      <p class="lede">Three days of music, type, riot-print and after-dark art across nine warehouses on the Maas. Loud on purpose.</p>
+      <div class="hero-cta">
+        <a href="#tickets" class="btn btn--primary">Grab a 3-day pass →</a>
+        <a href="#lineup" class="btn btn--ghost">See the line-up</a>
+      </div>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <div class="blk b1"><div class="lbl">Friday headliner</div><div class="big">STATIC<br>BLOOM</div></div>
+      <div class="blk b2"><div class="lbl">Print stage</div><div class="big" style="color:var(--accent)">RISO<br>RIOT</div></div>
+      <div class="blk b3"><div class="lbl">Late · warehouse 9</div><div class="big">3AM<br>NOISE</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div>
+    <span>AS HEARD ON <b>NTS RADIO</b></span><span><b>DAZED</b></span><span><b>THE WIRE</b></span><span><b>RESIDENT ADVISOR</b></span><span>★ 24,000 RIOTERS LAST YEAR ★</span>
+    <span>AS HEARD ON <b>NTS RADIO</b></span><span><b>DAZED</b></span><span><b>THE WIRE</b></span><span><b>RESIDENT ADVISOR</b></span><span>★ 24,000 RIOTERS LAST YEAR ★</span>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <span class="tape" style="top:40px;left:8%;transform:rotate(-5deg)">cut here ✂</span>
+    <div class="sec-head">
+      <p class="eyebrow">Why Fracture</p>
+      <h2>One festival. <mark>Zero</mark> straight lines.</h2>
+      <p>A real grid, gleefully torn up. Here's what holds the chaos together.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Nine stages</h3>
+        <p>From the techno bunker to the open-air type-and-screenprint yard, every warehouse runs its own programme.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>Print &amp; art</h3>
+        <p>Live riso, letterpress and zine-making between sets. Walk out with art still wet on the page.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>Until late</h3>
+        <p>Doors at noon, last act at 5am. Camp on-site or stumble home along the harbour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lineup">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The line-up</p>
+      <h2>Three days, sixty acts.</h2>
+    </div>
+    <div class="lineup">
+      <div class="act a1"><div class="day">Fri · Main</div><h3>Static Bloom</h3><p>Noise-pop quartet, first European date in four years.</p></div>
+      <div class="act a2"><div class="day">Fri · Bunker</div><h3>Margot Vex b2b Kessler</h3><p>Six-hour back-to-back closing the techno warehouse.</p></div>
+      <div class="act a3"><div class="day">Sat · Yard</div><h3>The Riso Riot</h3><p>Print collective + brass band, performing the festival poster live.</p></div>
+      <div class="act a4"><div class="day">Sun · Main</div><h3>Halftone Choir</h3><p>40-voice ensemble &amp; modular synth send the weekend off loud.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="wrap quote-wrap">
+    <span class="tape" style="top:30px;right:10%;transform:rotate(7deg)">pull quote</span>
+    <div class="quote">
+      <p>The only festival where the poster is a band, the floor is a printing press, and nobody can agree which way the stage faces. I never want it to make sense.</p>
+      <div class="who">— Dazed, on Fracture Fest 2025</div>
+    </div>
+  </div>
+</section>
+
+<section id="tickets" class="cta-band">
+  <div class="wrap">
+    <h2>Don't read about it. <em>Be there.</em></h2>
+    <div class="ticket">
+      <div class="big"><s>€189</s> €149</div>
+      <div class="grotesk" style="margin-top:8px;font-size:13px">3-day pass · phase-1 release · 600 left</div>
+    </div>
+    <div>
+      <a href="#" class="btn btn--ghost" style="font-size:17px;padding:18px 36px">Claim your wristband →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:var(--bg);font-size:30px">Fracture<b>FEST</b></div>
+        <p style="margin-top:14px;max-width:34ch;opacity:.8">Rotterdam's loudest weekend of music, type and riot-print. Since 2013.</p>
+      </div>
+      <div><h4>Festival</h4><ul><li>Line-up</li><li>Stages</li><li>Travel &amp; camping</li><li>Accessibility</li></ul></div>
+      <div><h4>Info</h4><ul><li>About</li><li>Press</li><li>Volunteer</li><li>Contact</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Terms</li><li>Privacy</li><li>Refunds</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">15</div>
+      <div class="meta">
+        <div><b>MAGAZINE PUNK</b> · Invented family</div>
+        <div style="opacity:.8;margin-top:4px">A real editorial column grid, deliberately violated with maximalist collage — overlapping rotated blocks, cut-out type, tape &amp; sticker motifs, Memphis confetti. Controlled chaos. Lineage: Swiss editorial × 1980s Memphis Group maximalism / punk-zine collage.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Mixed</span><span>Surface: Flat</span><span>Energy: Maximal</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;opacity:.6;font-size:13px">Specimen 15 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 15</a>
+
+</body>
+</html>

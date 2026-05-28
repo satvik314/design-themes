@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen — Glassmorphism · Design Themes Atlas</title>
+<!--
+  SPECIMEN 03 · GLASSMORPHISM · Heritage family
+  Topic: music streaming app (Lumen)
+  Axes — Structure: Loose · Surface: Deep · Energy: Vivid
+  Logic: frosted translucent panels (rgba + backdrop-filter:blur) float over a rich
+  multi-color radial-gradient mesh. Thin 1px semi-transparent white borders, soft glows,
+  subtle inner highlights, light text. Cards read as panes of frosted glass.
+  Lineage: Apple Big Sur / iOS frosted UI → Microsoft Fluent Acrylic → the 2020 dribbble glass trend.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#0b0a1e;            /* deep night base      */
+    --surface:rgba(255,255,255,.08);  /* frosted glass surface */
+    --fg:#f4f1ff;            /* primary light text   */
+    --muted:rgba(244,241,255,.66);    /* secondary text       */
+    --accent:#7c5cff;        /* vivid violet accent  */
+    --accent-2:#3be0e0;      /* electric cyan        */
+    --border:rgba(255,255,255,.18);   /* hairline glass edge  */
+    --radius:24px;           /* soft glass rounding  */
+    --shadow:0 8px 32px rgba(0,0,0,.37);
+    --shadow-lg:0 20px 60px rgba(0,0,0,.45);
+    --font-display:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --font-body:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --space:8px;
+    --maxw:1120px;
+    /* theme extras */
+    --pink:#ff6ad5;
+    --glass:rgba(255,255,255,.08);
+    --glass-strong:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(40% 50% at 12% 16%, rgba(124,92,255,.55), transparent 60%),
+      radial-gradient(38% 46% at 88% 10%, rgba(59,224,224,.42), transparent 60%),
+      radial-gradient(46% 54% at 78% 86%, rgba(255,106,213,.45), transparent 60%),
+      radial-gradient(40% 48% at 22% 92%, rgba(94,120,255,.42), transparent 62%);
+    background-attachment:fixed;
+    min-height:100vh;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.05}
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    backdrop-filter:blur(22px) saturate(160%);
+    -webkit-backdrop-filter:blur(22px) saturate(160%);
+    box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;
+    padding:14px 26px;border-radius:999px;border:1px solid var(--border);
+    background:var(--glass);color:var(--fg);
+    backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.25);transition:transform .15s,box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,92,255,.4),inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn--primary{background:linear-gradient(135deg,var(--accent),var(--pink));border-color:transparent;color:#fff;
+    box-shadow:0 8px 28px rgba(124,92,255,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+  .tag{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);color:var(--fg);
+    font-weight:600;font-size:13px;letter-spacing:.04em;padding:7px 16px;border-radius:999px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .tag .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 10px var(--accent-2)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;margin:0;background:rgba(11,10,30,.45);
+    backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+    border-bottom:1px solid var(--border)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:700;letter-spacing:-.02em}
+  .nav-links{display:flex;gap:30px;list-style:none;font-weight:600;font-size:15px}
+  .nav-links a{text-decoration:none;color:var(--muted)}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:80px 0 90px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(40px,7vw,72px);margin:22px 0 20px}
+  .hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--accent-2),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:19px;max-width:40ch;color:var(--muted);margin-bottom:30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* now-playing stacked glass cards */
+  .player{position:relative;padding:0}
+  .np{padding:26px}
+  .np .head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+  .np .cover{width:64px;height:64px;border-radius:16px;flex:none;
+    background:linear-gradient(135deg,var(--accent),var(--pink));box-shadow:0 8px 24px rgba(124,92,255,.5)}
+  .np .t{font-weight:700;font-size:18px}
+  .np .s{font-size:14px;color:var(--muted)}
+  .np .seek{height:6px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin:4px 0 18px}
+  .np .seek b{display:block;height:100%;width:42%;background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+  .np .ctrls{display:flex;align-items:center;justify-content:center;gap:26px;color:var(--fg)}
+  .np .play{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(124,92,255,.55)}
+  /* equalizer */
+  .eq{display:flex;align-items:flex-end;gap:5px;height:46px;margin-top:24px;justify-content:center}
+  .eq span{width:7px;border-radius:4px;background:linear-gradient(180deg,var(--accent-2),var(--accent));animation:bounce 1s ease-in-out infinite}
+  .eq span:nth-child(1){animation-delay:-.8s}.eq span:nth-child(2){animation-delay:-.5s}
+  .eq span:nth-child(3){animation-delay:-.2s}.eq span:nth-child(4){animation-delay:-.6s}
+  .eq span:nth-child(5){animation-delay:-.3s}.eq span:nth-child(6){animation-delay:-.9s}
+  .eq span:nth-child(7){animation-delay:-.4s}
+  @keyframes bounce{0%,100%{height:14px}50%{height:46px}}
+  .np-mini{position:absolute;right:-22px;bottom:-26px;width:230px;padding:16px 18px;display:flex;align-items:center;gap:12px}
+  .np-mini .cover{width:40px;height:40px;border-radius:12px;flex:none;background:linear-gradient(135deg,var(--accent-2),#5e78ff)}
+  .np-deep{position:absolute;left:-26px;top:-30px;width:200px;height:120px;z-index:-1;opacity:.7}
+
+  /* ---- social proof ---- */
+  .proof{padding:14px 0 0}
+  .proof-inner{padding:26px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+  @media(max-width:760px){.proof-inner{grid-template-columns:1fr 1fr}}
+  .proof .big{font-size:32px;font-weight:700;background:linear-gradient(120deg,var(--accent-2),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .proof .lbl{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* ---- section scaffold ---- */
+  section{padding:84px 0;position:relative}
+  .eyebrow{font-weight:700;color:var(--accent-2);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  .sec-head{max-width:42ch}
+  .sec-head h2{font-size:clamp(30px,5vw,48px)}
+  .sec-head p{font-size:18px;max-width:50ch;margin-top:14px;color:var(--muted)}
+  .sec-head.center{margin:0 auto;text-align:center}
+  .sec-head.center p{margin-left:auto;margin-right:auto}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{padding:32px;transition:transform .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg),inset 0 1px 0 rgba(255,255,255,.28)}
+  .card .ico{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+    background:rgba(255,255,255,.1);border:1px solid var(--border)}
+  .card h3{font-size:21px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- showcase / gallery ---- */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:50px}
+  @media(max-width:860px){.gallery{grid-template-columns:1fr 1fr}}
+  .tile{padding:18px;transition:transform .18s}
+  .tile:hover{transform:translateY(-5px)}
+  .tile .art{aspect-ratio:1;border-radius:16px;margin-bottom:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .tile:nth-child(1) .art{background:linear-gradient(135deg,#7c5cff,#ff6ad5)}
+  .tile:nth-child(2) .art{background:linear-gradient(135deg,#3be0e0,#5e78ff)}
+  .tile:nth-child(3) .art{background:linear-gradient(135deg,#ff6ad5,#ffb86b)}
+  .tile:nth-child(4) .art{background:linear-gradient(135deg,#5e78ff,#3be0e0)}
+  .tile .t{font-weight:700;font-size:16px}
+  .tile .s{color:var(--muted);font-size:13px}
+
+  /* ---- testimonial ---- */
+  .quote{padding:54px;max-width:800px;margin:0 auto;text-align:center}
+  .quote p{font-size:clamp(22px,3.3vw,32px);line-height:1.28;font-weight:600}
+  .quote .who{margin-top:24px;font-size:15px;color:var(--muted);font-weight:700}
+
+  /* ---- CTA band / pricing ---- */
+  .cta-band{padding:64px 40px;text-align:center;max-width:880px;margin:0 auto}
+  .cta-band h2{font-size:clamp(32px,5.2vw,52px)}
+  .cta-band p{color:var(--muted);font-size:18px;margin:14px auto 28px;max-width:46ch}
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:560px;margin:0 auto 26px}
+  @media(max-width:560px){.plans{grid-template-columns:1fr}}
+  .plan{padding:26px;text-align:left;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid var(--border)}
+  .plan.hot{background:linear-gradient(135deg,rgba(124,92,255,.35),rgba(255,106,213,.28));border-color:rgba(255,255,255,.3)}
+  .plan .nm{font-weight:700;font-size:15px;color:var(--muted)}
+  .plan .price{font-size:38px;font-weight:700;margin:8px 0}
+  .plan .price small{font-size:15px;color:var(--muted);font-weight:600}
+  .plan ul{list-style:none;margin-top:12px;font-size:14px;color:var(--muted)}
+  .plan li{margin-bottom:7px}
+
+  /* ---- footer + specimen card ---- */
+  footer{padding:64px 0 30px;border-top:1px solid var(--border);margin-top:60px;
+    background:rgba(11,10,30,.4);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-weight:700;font-size:13px;color:var(--accent-2);margin-bottom:14px;letter-spacing:.06em;text-transform:uppercase}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px;font-size:15px;color:var(--muted)}
+  .specimen{margin-top:48px;padding:24px 26px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;font-size:13px;
+    border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr}}
+  .specimen .no{font-size:42px;font-weight:700;background:linear-gradient(120deg,var(--accent-2),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .specimen .meta b{color:var(--accent-2)}
+  .specimen .meta .desc{color:var(--muted);margin-top:5px;line-height:1.5}
+  .specimen .axes span{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 12px;margin:3px 3px 0 0;font-size:11px;color:var(--fg)}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;color:var(--fg);text-decoration:none;
+    padding:11px 16px;border-radius:999px;font-weight:700;font-size:13px;
+    background:var(--glass-strong);border:1px solid var(--border);
+    backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+    box-shadow:0 8px 24px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.3)}
+  .atlas-badge:hover{box-shadow:0 8px 30px rgba(124,92,255,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3be0e0"/><stop offset="1" stop-color="#ff6ad5"/></linearGradient></defs><circle cx="14" cy="14" r="13" fill="url(#lg)"/><circle cx="14" cy="14" r="5" fill="#0b0a1e"/></svg>
+      Lumen
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#browse">Browse</a></li>
+      <li><a href="#proof">Listeners</a></li>
+      <li><a href="#join">Pricing</a></li>
+    </ul>
+    <a href="#join" class="btn btn--primary">Get Lumen free</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag"><span class="dot"></span> Lossless audio · Spatial sound</span>
+      <h1>Music that feels like <em>liquid light</em>.</h1>
+      <p>Lumen streams in studio-quality lossless, learns the textures you love, and wraps every track in a living, glowing interface.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn--primary">Start listening free →</a>
+        <a href="#browse" class="btn">Explore the catalog</a>
+      </div>
+    </div>
+    <div class="hero-art player" aria-hidden="true">
+      <div class="np-deep glass"></div>
+      <div class="np glass">
+        <div class="head">
+          <div class="cover"></div>
+          <div><div class="t">Glass Tides</div><div class="s">Aurelia · Prism Sessions</div></div>
+        </div>
+        <div class="seek"><b></b></div>
+        <div class="ctrls">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 6v12M20 6l-9 6 9 6z"/></svg>
+          <div class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6v12M4 6l9 6-9 6z"/></svg>
+        </div>
+        <div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="np-mini glass">
+        <div class="cover"></div>
+        <div><div class="t" style="font-size:14px">Neon Drift</div><div class="s" style="font-size:12px">Up next</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-inner glass">
+      <div><div class="big">90M+</div><div class="lbl">tracks, lossless</div></div>
+      <div><div class="big">24-bit</div><div class="lbl">hi-res streaming</div></div>
+      <div><div class="big">12M</div><div class="lbl">active listeners</div></div>
+      <div><div class="big">4.8★</div><div class="lbl">App Store rating</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Why Lumen</p>
+      <h2>An interface as immersive as the sound</h2>
+      <p>Frosted, glowing, alive — built so the music is always the brightest thing on screen.</p>
+    </div>
+    <div class="cards">
+      <div class="card glass">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3be0e0" stroke-width="2" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></div>
+        <h3>Lossless &amp; spatial</h3>
+        <p>Every track streams in 24-bit hi-res with spatial audio, indistinguishable from the master.</p>
+      </div>
+      <div class="card glass">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff6ad5" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8v8M19 8v8"/></svg></div>
+        <h3>Mixes that read you</h3>
+        <p>Lumen learns your textures and moods, building daily mixes that feel hand-picked.</p>
+      </div>
+      <div class="card glass">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7c5cff" stroke-width="2" stroke-linecap="round"><path d="M4 18 8 6l4 9 3-6 5 9"/></svg></div>
+        <h3>Seamless everywhere</h3>
+        <p>Start on your phone, finish on your desktop. Playback hands off instantly across devices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="browse">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Made for you</p>
+      <h2>Tonight's glow</h2>
+      <p>Fresh mixes refreshed every evening, tuned to where your ears have been.</p>
+    </div>
+    <div class="gallery">
+      <div class="tile glass"><div class="art"></div><div class="t">Midnight Synthwave</div><div class="s">52 tracks · 3h 14m</div></div>
+      <div class="tile glass"><div class="art"></div><div class="t">Cyan Ambient</div><div class="s">40 tracks · 2h 48m</div></div>
+      <div class="tile glass"><div class="art"></div><div class="t">Sunset Disco</div><div class="s">36 tracks · 2h 05m</div></div>
+      <div class="tile glass"><div class="art"></div><div class="t">Focus Currents</div><div class="s">61 tracks · 4h 02m</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="quote glass">
+      <p>“Lumen is the first app where I actually look at the screen while I listen. The glass UI glows with the track — it feels like the music is lighting it up.”</p>
+      <div class="who">— Renata Vos, sound designer &amp; Lumen listener</div>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="cta-band glass">
+    <h2>Turn the lights on your library.</h2>
+    <p>Start free, upgrade when you're hooked. Lossless, spatial, ad-free — cancel anytime.</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="nm">Free</div>
+        <div class="price">$0<small>/mo</small></div>
+        <ul><li>Standard quality</li><li>Shuffle play</li><li>Occasional ads</li></ul>
+      </div>
+      <div class="plan hot">
+        <div class="nm">Premium</div>
+        <div class="price">$10<small>/mo</small></div>
+        <ul><li>24-bit lossless + spatial</li><li>Offline &amp; ad-free</li><li>Personalized daily mixes</li></ul>
+      </div>
+    </div>
+    <a href="#" class="btn btn--primary" style="font-size:17px;padding:16px 34px">Try Premium free for 3 months →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:22px">
+          <svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3be0e0"/><stop offset="1" stop-color="#ff6ad5"/></linearGradient></defs><circle cx="14" cy="14" r="13" fill="url(#lg2)"/><circle cx="14" cy="14" r="5" fill="#0b0a1e"/></svg>
+          Lumen
+        </div>
+        <p style="margin-top:14px;max-width:34ch;color:var(--muted)">Studio-quality streaming wrapped in a living, frosted interface. Music that glows.</p>
+      </div>
+      <div><h4>Product</h4><ul><li>Features</li><li>Lossless</li><li>Apps</li><li>Pricing</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>Artists</li><li>Careers</li><li>Press</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Terms</li><li>Privacy</li><li>Licensing</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">03</div>
+      <div class="meta">
+        <div><b>GLASSMORPHISM</b> · Heritage family</div>
+        <div class="desc">Frosted translucent panels over a vivid multi-color gradient mesh, with hairline white borders, soft glows and inner highlights. Lineage: Apple Big Sur / iOS frosted UI → Microsoft Fluent Acrylic → the 2020 dribbble glass trend.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Loose</span><span>Surface: Deep</span><span>Energy: Vivid</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted);font-size:13px;opacity:.7">Specimen 03 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 03</a>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHIP/AI — Neo-Brutalism · Design Themes Atlas</title>
+<!--
+  SPECIMEN 01 · NEO-BRUTALISM · Heritage family
+  Topic: AI course landing page
+  Axes — Structure: rigid · Surface: flat · Energy: LOUD
+  Logic: raw HTML made aggressive. Thick black borders, hard offset
+  shadows (no blur), clashing saturated colours, exposed grid, system
+  & grotesk type. Nothing is hidden; the structure IS the decoration.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#ffe600;            /* page background      */
+    --surface:#ffffff;       /* card / panel surface */
+    --fg:#0d0d0d;            /* primary text         */
+    --muted:#3a3a3a;         /* secondary text       */
+    --accent:#ff4d3d;        /* primary accent       */
+    --accent-2:#2d5bff;      /* secondary accent     */
+    --border:#0d0d0d;        /* border colour        */
+    --bw:3px;                /* border weight        */
+    --radius:0px;            /* corner radius        */
+    --shadow:6px 6px 0 var(--border);   /* signature shadow */
+    --shadow-lg:10px 10px 0 var(--border);
+    --font-display:"Arial Black","Helvetica Neue",Impact,sans-serif;
+    --font-body:"Helvetica Neue",Arial,sans-serif;
+    --space:8px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:.95;text-transform:uppercase}
+  .btn{
+    display:inline-block;font-family:var(--font-display);text-transform:uppercase;
+    font-size:15px;letter-spacing:.02em;text-decoration:none;cursor:pointer;
+    padding:14px 24px;border:var(--bw) solid var(--border);background:var(--surface);
+    color:var(--fg);box-shadow:var(--shadow);transition:transform .08s,box-shadow .08s;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--border)}
+  .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--border)}
+  .btn--primary{background:var(--accent);color:#fff}
+  .btn--ghost{background:var(--surface)}
+  .tag{display:inline-block;background:var(--fg);color:var(--bg);font-family:var(--font-display);
+    text-transform:uppercase;font-size:12px;letter-spacing:.08em;padding:6px 12px;border:var(--bw) solid var(--border)}
+
+  /* ---- nav ---- */
+  header{border-bottom:var(--bw) solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50}
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:var(--font-display);font-size:24px;text-transform:uppercase;letter-spacing:-.03em}
+  .logo span{background:var(--accent);color:#fff;padding:0 6px;border:var(--bw) solid var(--border)}
+  .nav-links{display:flex;gap:28px;list-style:none;font-weight:700;font-size:15px}
+  .nav-links a{text-decoration:none}
+  .nav-links a:hover{background:var(--accent-2);color:#fff;box-shadow:3px 3px 0 var(--border)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:72px 0 80px;border-bottom:var(--bw) solid var(--border);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(44px,8vw,86px);margin:18px 0 22px}
+  .hero h1 em{font-style:normal;background:var(--accent-2);color:#fff;padding:0 10px;display:inline-block;transform:rotate(-2deg)}
+  .hero p{font-size:19px;max-width:34ch;font-weight:500;margin-bottom:30px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-art{border:var(--bw) solid var(--border);background:var(--surface);box-shadow:var(--shadow-lg);padding:24px}
+  .hero-art .chip{display:flex;justify-content:space-between;align-items:center;border:var(--bw) solid var(--border);
+    padding:12px 14px;margin-bottom:12px;font-weight:700;background:#fff}
+  .hero-art .chip:nth-child(1){background:var(--accent);color:#fff}
+  .hero-art .chip:nth-child(2){background:#b9ff3d}
+  .hero-art .chip:nth-child(3){background:var(--accent-2);color:#fff}
+  .hero-art .bar{height:14px;background:var(--fg);margin-top:14px}
+  .hero-art .bar.short{width:62%}
+  .hero-art .bar.mid{width:80%}
+  .blob{position:absolute;font-family:var(--font-display);font-size:120px;opacity:.12;right:-10px;bottom:-30px;transform:rotate(-8deg);pointer-events:none}
+
+  /* ---- marquee / social proof ---- */
+  .marquee{background:var(--fg);color:var(--bg);border-bottom:var(--bw) solid var(--border);overflow:hidden;white-space:nowrap}
+  .marquee div{display:inline-block;padding:14px 0;font-family:var(--font-display);text-transform:uppercase;font-size:16px;animation:scroll 22s linear infinite}
+  .marquee span{margin:0 28px}
+  .marquee span b{color:var(--accent)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---- section scaffold ---- */
+  section{padding:80px 0;border-bottom:var(--bw) solid var(--border)}
+  .eyebrow{font-family:var(--font-display);text-transform:uppercase;color:var(--accent);font-size:14px;letter-spacing:.1em;margin-bottom:10px}
+  .sec-head h2{font-size:clamp(30px,5vw,52px);max-width:18ch}
+  .sec-head p{font-size:18px;max-width:48ch;margin-top:14px;font-weight:500;color:var(--muted)}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{border:var(--bw) solid var(--border);background:var(--surface);padding:28px;box-shadow:var(--shadow);transition:transform .1s}
+  .card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg)}
+  .card .num{font-family:var(--font-display);font-size:34px;background:var(--accent-2);color:#fff;display:inline-block;width:54px;height:54px;text-align:center;line-height:54px;border:var(--bw) solid var(--border);margin-bottom:18px}
+  .card:nth-child(2) .num{background:var(--accent)}
+  .card:nth-child(3) .num{background:#b9ff3d;color:var(--fg)}
+  .card h3{font-size:22px;margin-bottom:10px}
+  .card p{font-weight:500;color:var(--muted)}
+
+  /* ---- showcase / curriculum ---- */
+  .showcase{display:grid;grid-template-columns:1fr 1fr;gap:0;border:var(--bw) solid var(--border);box-shadow:var(--shadow-lg);background:var(--surface);margin-top:48px}
+  @media(max-width:860px){.showcase{grid-template-columns:1fr}}
+  .week{padding:24px 28px;border-bottom:var(--bw) solid var(--border)}
+  .week:nth-child(odd){border-right:var(--bw) solid var(--border)}
+  @media(max-width:860px){.week:nth-child(odd){border-right:none}}
+  .week b{font-family:var(--font-display);font-size:13px;color:var(--accent)}
+  .week h3{font-size:20px;margin:6px 0}
+  .week p{font-weight:500;color:var(--muted);font-size:15px}
+
+  /* ---- testimonial ---- */
+  .quote{background:var(--accent-2);color:#fff;border:var(--bw) solid var(--border);box-shadow:var(--shadow-lg);padding:48px;max-width:760px;margin:0 auto}
+  .quote p{font-family:var(--font-display);font-size:clamp(22px,3.4vw,34px);line-height:1.1;text-transform:none}
+  .quote .who{margin-top:22px;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
+
+  /* ---- CTA band / pricing ---- */
+  .cta-band{background:var(--accent);color:#fff;text-align:center}
+  .cta-band h2{font-size:clamp(34px,6vw,64px)}
+  .price{display:inline-block;background:var(--surface);color:var(--fg);border:var(--bw) solid var(--border);box-shadow:var(--shadow-lg);padding:36px 48px;margin:34px 0 28px}
+  .price .big{font-family:var(--font-display);font-size:64px}
+  .price .big s{color:var(--muted);font-size:30px}
+
+  /* ---- footer + specimen card ---- */
+  footer{background:var(--fg);color:var(--bg);padding:64px 0 28px;border:none}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-display);text-transform:uppercase;font-size:13px;color:var(--accent);margin-bottom:14px;letter-spacing:.08em}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px;font-weight:500;font-size:15px;opacity:.85}
+  .specimen{margin-top:48px;border:var(--bw) solid var(--bg);padding:20px 22px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;font-size:13px}
+  .specimen .no{font-family:var(--font-display);font-size:38px;color:var(--accent)}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .axes span{display:inline-block;border:1px solid var(--bg);padding:3px 8px;margin:2px;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+  .atlas-badge{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--fg);color:var(--bg);
+    border:var(--bw) solid var(--bg);box-shadow:4px 4px 0 var(--accent);font-family:var(--font-display);
+    text-transform:uppercase;font-size:12px;padding:10px 14px;text-decoration:none}
+  .atlas-badge:hover{background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">SHIP<span>/AI</span></div>
+    <ul class="nav-links">
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#features">Why us</a></li>
+      <li><a href="#proof">Results</a></li>
+      <li><a href="#join">Pricing</a></li>
+    </ul>
+    <a href="#join" class="btn btn--primary">Enroll now</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Cohort 07 · Starts June 9</span>
+      <h1>Build real <em>AI products</em> in 6 brutal weeks.</h1>
+      <p>No fluff, no toy notebooks. Ship three production LLM apps with code review from engineers who've actually done it.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn--primary">Claim your seat →</a>
+        <a href="#curriculum" class="btn btn--ghost">See the syllabus</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="chip"><span>01 · Prompt Engineering</span><span>✓</span></div>
+      <div class="chip"><span>02 · RAG Pipelines</span><span>✓</span></div>
+      <div class="chip"><span>03 · Agents &amp; Tools</span><span>→</span></div>
+      <div class="bar mid"></div>
+      <div class="bar short"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <div class="blob">AI</div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div>
+    <span>SHIPPED BY ENGINEERS FROM <b>STRIPE</b></span><span><b>OPENAI</b></span><span><b>FIGMA</b></span><span><b>NOTION</b></span><span><b>VERCEL</b></span><span>3,400+ GRADUATES</span>
+    <span>SHIPPED BY ENGINEERS FROM <b>STRIPE</b></span><span><b>OPENAI</b></span><span><b>FIGMA</b></span><span><b>NOTION</b></span><span><b>VERCEL</b></span><span>3,400+ GRADUATES</span>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Why SHIP/AI</p>
+      <h2>Most courses teach theory. We make you ship.</h2>
+      <p>Three things every cohort is built around. No exceptions.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Real codebases</h3>
+        <p>You work in a production repo from day one — tests, CI, the works. Not a sandbox.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>Live code review</h3>
+        <p>Every PR gets human feedback within 24 hours from a working AI engineer.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>A portfolio that hits</h3>
+        <p>Graduate with three deployed apps and the confidence to talk about every line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The syllabus</p>
+      <h2>Six weeks. Three shipped apps.</h2>
+    </div>
+    <div class="showcase">
+      <div class="week"><b>WEEK 01–02</b><h3>Prompting &amp; evals</h3><p>Build a reliable LLM feature and learn to measure it like an engineer, not a vibe.</p></div>
+      <div class="week"><b>WEEK 02–03</b><h3>RAG that works</h3><p>Chunking, embeddings, retrieval quality, and why your first RAG app is probably broken.</p></div>
+      <div class="week"><b>WEEK 04</b><h3>Agents &amp; tool use</h3><p>Function calling, planning loops, and keeping autonomous systems on a leash.</p></div>
+      <div class="week"><b>WEEK 05–06</b><h3>Ship &amp; scale</h3><p>Cost, latency, caching, and deploying something real people actually use.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="quote">
+      <p>“I went from copy-pasting ChatGPT into a doc to shipping a RAG product my company now sells. Six weeks. Worth ten times the price.”</p>
+      <div class="who">— Priya N., now Senior AI Engineer</div>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="cta-band">
+  <div class="wrap">
+    <h2>Cohort 07 is filling up.</h2>
+    <div class="price">
+      <div class="big"><s>$2,400</s> $1,490</div>
+      <div style="font-weight:700;text-transform:uppercase;margin-top:8px">Early-bird · 18 seats left</div>
+    </div>
+    <div>
+      <a href="#" class="btn btn--ghost" style="font-size:18px;padding:18px 36px">Enroll in Cohort 07 →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:var(--bg);font-size:28px">SHIP<span>/AI</span></div>
+        <p style="margin-top:14px;max-width:34ch;opacity:.8;font-weight:500">A brutally practical AI engineering course. Build, ship, repeat.</p>
+      </div>
+      <div><h4>Course</h4><ul><li>Curriculum</li><li>Mentors</li><li>Cohorts</li><li>FAQ</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>Blog</li><li>Careers</li><li>Contact</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Terms</li><li>Privacy</li><li>Refunds</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">01</div>
+      <div class="meta">
+        <div><b>NEO-BRUTALISM</b> · Heritage family</div>
+        <div style="opacity:.8;margin-top:4px">Raw structure as decoration: hard offset shadows, thick borders, clashing saturated colour, grotesk type. Lineage: punk web &amp; print → David Carson → the Gumroad era.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Flat</span><span>Energy: Loud</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;opacity:.6;font-size:13px">Specimen 01 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 01</a>
+
+</body>
+</html>
