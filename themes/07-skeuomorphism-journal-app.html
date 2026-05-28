@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marginalia — Skeuomorphism · Design Themes Atlas</title>
+<!--
+  SPECIMEN 07 · SKEUOMORPHISM · Heritage family
+  Topic: journaling / notes app, brand "Marginalia"
+  Axes — Structure: Rigid · Surface: Deep · Energy: Calm
+  Logic: surfaces imitate real materials. Stitched leather (gradients +
+  dashed borders), ruled paper (repeating-linear-gradient lines), letterpress
+  & embossed text-shadows, beveled brass buttons and lighting-implied drop
+  shadows. Serif type sells the analog, pre-iOS7 desktop feel.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#3a2a1c;            /* dark leather backdrop */
+    --surface:#f6efdd;       /* aged paper surface    */
+    --fg:#2e2418;            /* ink text              */
+    --muted:#6b5d49;         /* faded ink             */
+    --accent:#9a6b2f;        /* brass / tan accent    */
+    --accent-2:#7a3b2e;      /* oxblood leather accent*/
+    --border:#caa15a;        /* brass stitching/edge  */
+    --radius:8px;            /* modest real-object radius */
+    --shadow:0 10px 22px -8px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.4); /* lit drop shadow */
+    --font-display:Georgia,"Times New Roman","Palatino Linotype",serif;
+    --font-body:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --space:8px;
+    --maxw:1120px;
+    /* extra theme tokens */
+    --leather:linear-gradient(180deg,#5a4126,#43301c);
+    --leather-red:linear-gradient(180deg,#8a4636,#5e2c22);
+    --brass:linear-gradient(180deg,#e6c47a,#b9883f 50%,#8a5f23);
+    --paper-lines:repeating-linear-gradient(180deg,transparent,transparent 31px,rgba(120,90,50,.22) 31px,rgba(120,90,50,.22) 32px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    color:var(--fg);font-family:var(--font-body);line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    background:var(--leather);
+    background-attachment:fixed;
+  }
+  /* subtle leather grain over the body */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background:
+      radial-gradient(circle at 20% 30%,rgba(255,255,255,.05),transparent 8%),
+      radial-gradient(circle at 70% 60%,rgba(0,0,0,.18),transparent 10%),
+      repeating-linear-gradient(45deg,rgba(0,0,0,.04) 0 2px,transparent 2px 5px)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:0;line-height:1.12;font-weight:700}
+  /* letterpress / embossed type on paper */
+  .emboss{text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(0,0,0,.15)}
+  .deboss{color:#caa15a;text-shadow:0 1px 1px rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.12)}
+
+  /* beveled brass button */
+  .btn{
+    display:inline-block;font-family:var(--font-display);font-weight:700;font-size:16px;
+    text-decoration:none;cursor:pointer;padding:13px 26px;border-radius:7px;
+    color:#3a2510;border:1px solid #7a531f;
+    background:var(--brass);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 4px rgba(0,0,0,.3),0 4px 8px -2px rgba(0,0,0,.5);
+    text-shadow:0 1px 0 rgba(255,255,255,.4);transition:transform .1s,box-shadow .1s;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn--primary{}
+  .btn--ghost{color:#f3e9d2;border:1px solid #caa15a;background:linear-gradient(180deg,#6b4e2c,#4a3320);
+    text-shadow:0 1px 1px rgba(0,0,0,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 4px 8px -2px rgba(0,0,0,.5)}
+  .tag{display:inline-block;font-family:var(--font-display);font-style:italic;font-size:14px;
+    padding:6px 16px;border-radius:4px;color:#f3e9d2;
+    background:var(--leather-red);border:1px dashed #d6a86a;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 5px rgba(0,0,0,.4)}
+
+  /* paper card helper */
+  .paper{background:var(--surface);border-radius:var(--radius);position:relative;
+    border:1px solid #d8c89e;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.6);
+    background-image:var(--paper-lines)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;background:var(--leather);
+    border-bottom:3px solid #2a1d10;
+    box-shadow:0 4px 12px rgba(0,0,0,.5),inset 0 -2px 0 rgba(202,161,90,.4)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .logo{font-family:var(--font-display);font-size:26px;font-weight:700;font-style:italic;display:flex;align-items:center;gap:10px;color:#e9d3a3}
+  .logo .seal{width:30px;height:30px;border-radius:50%;background:var(--brass);
+    border:1px solid #7a531f;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 4px rgba(0,0,0,.5);
+    display:flex;align-items:center;justify-content:center;font-size:15px;color:#4a3110}
+  .nav-links{display:flex;gap:26px;list-style:none;font-size:15px;font-style:italic}
+  .nav-links a{text-decoration:none;color:#d8c29a}
+  .nav-links a:hover{color:#fff;text-decoration:underline}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:66px 0 80px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(40px,7vw,70px);margin:20px 0 22px;color:#f4ead2}
+  .hero h1 em{font-style:italic;color:#e9c87f}
+  .hero p{font-size:19px;max-width:38ch;color:#d8c8ac;margin-bottom:30px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  /* hero visual: open journal */
+  .hero-art{position:relative}
+  .journal{padding:14px;border-radius:12px;background:var(--leather-red);
+    border:2px solid #3a201a;
+    box-shadow:0 26px 50px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.18)}
+  .journal::after{content:"";position:absolute;left:14px;right:14px;top:24px;bottom:24px;border:1px dashed #d6a86a;border-radius:8px;pointer-events:none;opacity:.55}
+  .page{background:var(--surface);border-radius:6px;padding:30px 32px 36px;background-image:var(--paper-lines);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 3px 0 8px rgba(120,90,50,.18)}
+  .page .date{font-style:italic;color:var(--muted);font-size:14px;margin-bottom:14px}
+  .page h3{font-size:22px;margin-bottom:10px}
+  .page .ink{color:var(--fg);font-size:16px;line-height:32px}
+  .page .ink.hand{font-family:"Segoe Script","Bradley Hand","Brush Script MT",cursive;color:#34508a}
+  .ribbon{position:absolute;top:-6px;right:48px;width:22px;height:120px;background:var(--brass);box-shadow:0 4px 8px rgba(0,0,0,.5)}
+  .ribbon::after{content:"";position:absolute;bottom:-12px;left:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:12px solid #8a5f23}
+
+  /* ---- social proof ---- */
+  .proof{padding:14px 0}
+  .proof-card{padding:22px 28px;display:flex;align-items:center;justify-content:space-around;gap:20px;flex-wrap:wrap}
+  .proof-card .stat b{font-family:var(--font-display);font-size:30px;color:var(--accent-2);display:block}
+  .proof-card .stat span{color:var(--muted);font-size:14px;font-style:italic}
+
+  /* ---- section scaffold ---- */
+  section{padding:74px 0;position:relative;z-index:1}
+  .eyebrow{font-family:var(--font-display);font-style:italic;color:#e9c87f;font-size:15px;letter-spacing:.04em;margin-bottom:10px}
+  .sec-head{text-align:center;max-width:44ch;margin:0 auto}
+  .sec-head h2{font-size:clamp(30px,5vw,48px);color:#f4ead2}
+  .sec-head p{font-size:18px;margin-top:14px;color:#d8c8ac}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{padding:32px 28px 36px;text-align:center;transition:transform .12s}
+  .card:hover{transform:translateY(-4px)}
+  .card .ic{width:72px;height:72px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;
+    background:var(--brass);border:1px solid #7a531f;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 4px rgba(0,0,0,.3),0 5px 10px -3px rgba(0,0,0,.4)}
+  .card h3{font-size:22px;margin-bottom:10px;color:var(--accent-2)}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- showcase: bookshelf of journals ---- */
+  .showcase{margin-top:50px}
+  .shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:860px){.shelf{grid-template-columns:1fr 1fr}}
+  .book{height:200px;border-radius:8px;padding:18px 16px;display:flex;flex-direction:column;justify-content:space-between;
+    color:#f3e9d2;border:2px solid rgba(0,0,0,.35);position:relative;
+    box-shadow:inset -6px 0 12px rgba(0,0,0,.35),inset 6px 0 8px rgba(255,255,255,.12),0 12px 22px -10px rgba(0,0,0,.6)}
+  .book b{font-family:var(--font-display);font-style:italic;font-size:20px;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .book small{font-size:13px;opacity:.85;font-style:italic}
+  .book .band{height:3px;background:var(--brass);box-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .book.b1{background:linear-gradient(180deg,#7a3b2e,#56281f)}
+  .book.b2{background:linear-gradient(180deg,#3a5a3a,#26412a)}
+  .book.b3{background:linear-gradient(180deg,#2f4a66,#1e3146)}
+  .book.b4{background:linear-gradient(180deg,#5a4126,#3a2a17)}
+
+  /* ---- testimonial ---- */
+  .quote{padding:50px 46px;max-width:780px;margin:0 auto;text-align:center}
+  .quote p{font-family:var(--font-display);font-style:italic;font-size:clamp(22px,3.4vw,30px);line-height:1.4;color:var(--fg)}
+  .quote .who{margin-top:20px;font-weight:700;font-size:15px;color:var(--accent-2);font-style:normal}
+
+  /* ---- CTA band ---- */
+  .cta-band{text-align:center}
+  .cta-card{padding:54px 40px;max-width:760px;margin:0 auto}
+  .cta-band h2{font-size:clamp(32px,5.5vw,50px);color:var(--fg)}
+  .cta-card p.lead{color:var(--muted);font-size:18px;margin-top:8px}
+  .price{display:inline-block;border-radius:8px;padding:24px 38px;margin:26px 0;color:#f3e9d2;
+    background:var(--leather);border:1px solid #caa15a;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 18px -8px rgba(0,0,0,.6)}
+  .price .big{font-family:var(--font-display);font-size:50px;line-height:1;color:#e9c87f}
+  .price .big s{color:#a98c5a;font-size:24px}
+
+  /* ---- footer + specimen card ---- */
+  footer{margin-top:24px;padding:60px 0 30px;color:#e3d3ac;position:relative;z-index:1;
+    background:linear-gradient(180deg,#2a1d10,#1e150c);
+    border-top:3px solid var(--border);box-shadow:inset 0 2px 0 rgba(255,255,255,.08)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-display);font-style:italic;font-size:15px;color:#e9c87f;margin-bottom:14px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px;font-size:15px;opacity:.85}
+  footer .logo{color:#e9d3a3}
+  .specimen{margin-top:46px;border-radius:8px;padding:24px 26px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;font-size:13px;
+    background:rgba(0,0,0,.3);border:1px dashed var(--border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+  .specimen .no{font-family:var(--font-display);font-size:44px;color:#e9c87f}
+  .specimen .meta b{color:#e9c87f}
+  .specimen .axes span{display:inline-block;background:rgba(202,161,90,.16);border:1px solid rgba(202,161,90,.4);border-radius:4px;padding:5px 12px;margin:3px;font-size:11px;font-style:italic}
+  @media(max-width:680px){.specimen{grid-template-columns:1fr;text-align:center}}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;border-radius:7px;padding:11px 18px;
+    color:#3a2510;text-decoration:none;font-family:var(--font-display);font-weight:700;font-style:italic;font-size:13px;
+    background:var(--brass);border:1px solid #7a531f;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 4px rgba(0,0,0,.3),0 5px 10px -3px rgba(0,0,0,.5);transition:transform .1s}
+  .atlas-badge:hover{transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="seal">M</span>Marginalia</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#shelf">Your Shelf</a></li>
+      <li><a href="#love">Readers</a></li>
+      <li><a href="#join">Pricing</a></li>
+    </ul>
+    <a href="#join" class="btn btn--primary">Open a journal</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Est. for quiet minds</span>
+      <h1>A journal that feels like <em>real paper</em>.</h1>
+      <p>Marginalia gives your thoughts a leather cover, ruled pages and a brass clasp — the warmth of a notebook, with everything searchable and safe.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn--primary">Begin writing →</a>
+        <a href="#features" class="btn btn--ghost">See the craft</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="journal">
+        <span class="ribbon"></span>
+        <div class="page">
+          <div class="date">Tuesday, the 12th — half past nine</div>
+          <h3 class="emboss">Morning pages</h3>
+          <p class="ink">Woke before the alarm. The street was still and the coffee was good.</p>
+          <p class="ink hand">Remember to call Grandma about the garden.</p>
+          <p class="ink">Felt, for once, unhurried.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-card paper">
+      <div class="stat"><b>420K</b><span>journals kept</span></div>
+      <div class="stat"><b>11 yrs</b><span>longest unbroken streak</span></div>
+      <div class="stat"><b>4.8★</b><span>App Store rating</span></div>
+      <div class="stat"><b>100%</b><span>private &amp; encrypted</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The craftsmanship</p>
+      <h2 class="emboss" style="color:#f4ead2">Built to feel like an heirloom.</h2>
+      <p>Every detail borrowed from real stationery, so writing feels like writing.</p>
+    </div>
+    <div class="cards">
+      <div class="card paper">
+        <div class="ic">🖋</div>
+        <h3>Real ruled pages</h3>
+        <p>Lined paper, generous margins, and a fountain-pen cursor that makes daily pages a pleasure.</p>
+      </div>
+      <div class="card paper">
+        <div class="ic">🔖</div>
+        <h3>Brass clasp privacy</h3>
+        <p>A locked cover with on-device encryption. Your diary stays as private as a drawer that only you can open.</p>
+      </div>
+      <div class="card paper">
+        <div class="ic">📚</div>
+        <h3>A shelf that remembers</h3>
+        <p>Bound volumes by year and theme, fully searchable — flip back to any morning in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shelf">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Your bookshelf</p>
+      <h2 class="emboss" style="color:#f4ead2">Bound volumes, neatly kept.</h2>
+    </div>
+    <div class="showcase">
+      <div class="shelf">
+        <div class="book b1"><div class="band"></div><b>Daily Pages</b><small>2024 · 312 entries</small></div>
+        <div class="book b2"><div class="band"></div><b>Travels</b><small>Notes from the road</small></div>
+        <div class="book b3"><div class="band"></div><b>Gratitude</b><small>Three lines a night</small></div>
+        <div class="book b4"><div class="band"></div><b>Ideas</b><small>Sketches &amp; half-thoughts</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="love">
+  <div class="wrap">
+    <div class="quote paper">
+      <p>“It finally broke me of the empty-notebook guilt. The leather cover and paper lines make opening it feel like sitting down with an old friend.”</p>
+      <div class="who">— Eleanor V., writer &amp; nine-year journaler</div>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="cta-band">
+  <div class="wrap">
+    <div class="cta-card paper">
+      <h2 class="emboss">Start your first volume tonight.</h2>
+      <p class="lead">Bound, private, and yours to keep for life.</p>
+      <div class="price">
+        <div class="big"><s>$48</s> $29<span style="font-size:18px">/yr</span></div>
+        <div style="margin-top:6px;font-style:italic;color:#e3d3ac">Unlimited journals · 30-day free trial</div>
+      </div>
+      <div>
+        <a href="#" class="btn btn--primary" style="font-size:18px;padding:18px 40px">Open your journal →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:24px"><span class="seal">M</span>Marginalia</div>
+        <p style="margin-top:14px;max-width:34ch;opacity:.85">A journaling app with the warmth of leather and paper, and the safety of strong encryption.</p>
+      </div>
+      <div><h4>App</h4><ul><li>Journals</li><li>Search</li><li>Reminders</li><li>Export</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>The craft</li><li>Journal</li><li>Contact</li></ul></div>
+      <div><h4>Trust</h4><ul><li>Privacy</li><li>Encryption</li><li>Terms</li><li>Support</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">07</div>
+      <div class="meta">
+        <div><b>SKEUOMORPHISM</b> · Heritage family</div>
+        <div style="opacity:.85;margin-top:4px">Surfaces imitate real materials: stitched leather, ruled paper, letterpress text and beveled brass with lighting-implied shadows. Lineage: pre-iOS7 Apple (leather Notes, Find My Friends), Corinthian leather, classic desktop skeuomorphism.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Deep</span><span>Energy: Calm</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;opacity:.65;font-size:13px">Specimen 07 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 07</a>
+
+</body>
+</html>
