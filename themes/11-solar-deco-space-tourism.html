@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelia — Solar Deco · Design Themes Atlas</title>
+<!--
+  SPECIMEN 11 · SOLAR DECO · Invented family
+  Topic: luxury space tourism / orbital hotel (brand: Aurelia)
+  Axes — Structure: Rigid · Surface: Deep · Energy: Opulent
+  Hybrid logic: 1920s Art Deco geometry × Solarpunk eco-futurism.
+    Art Deco contributes: strict bilateral symmetry, sunburst & ray motifs,
+    stepped/ziggurat geometric frames, gold-on-deep-night palette, an
+    elegant high-contrast serif display with fine letterspacing, gilded
+    thin borders and radial gold gradients.
+    Solarpunk contributes: optimism instead of chrome dystopia — living
+    greenery, the sun as patron, clean-energy luxury, verdant teal-green
+    accents woven through the gold. Lineage: Chrysler/Gatsby Deco × Solarpunk.
+    Fusion = a gilded orbital hotel where the future is green and the
+    geometry is opulent. Rigid symmetry, deep layered surface, opulent.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#0a1714;            /* deep night-green       */
+    --surface:#10231e;       /* panel surface          */
+    --fg:#f3ecd6;            /* warm ivory             */
+    --muted:#9bb0a3;         /* sage secondary         */
+    --accent:#d9b46a;        /* deco gold              */
+    --accent-2:#4fae8b;      /* solarpunk verdant      */
+    --border:#be9a52;        /* gilded thin border     */
+    --bw:1px;                /* fine gilt line         */
+    --radius:0px;            /* deco: crisp angles     */
+    --shadow:0 24px 60px rgba(0,0,0,.5);
+    --font-display:"Didot","Bodoni MT","Playfair Display",Georgia,"Times New Roman",serif;
+    --font-body:"Optima","Gill Sans","Avenir Next",Georgia,serif;
+    --space:8px;
+    --maxw:1140px;
+    --gild:linear-gradient(180deg,#f0d79a,#d9b46a 40%,#a8823f);
+    --sunrad:radial-gradient(circle at 50% 0%,rgba(217,180,106,.30),transparent 60%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.7;-webkit-font-smoothing:antialiased;position:relative}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--sunrad);pointer-events:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;letter-spacing:.01em;line-height:1.08}
+  .gold-text{background:var(--gild);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .btn{display:inline-block;font-family:var(--font-body);font-size:13px;letter-spacing:.24em;text-transform:uppercase;
+    cursor:pointer;padding:15px 30px;border:var(--bw) solid var(--border);background:transparent;color:var(--fg);
+    transition:background .25s,color .25s}
+  .btn--primary{background:var(--gild);color:#1a1208;border-color:transparent;font-weight:600}
+  .btn--primary:hover{filter:brightness(1.08)}
+  .btn--ghost:hover{background:rgba(217,180,106,.12)}
+  .tag{display:inline-block;color:var(--accent);font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    padding:6px 0;border-top:var(--bw) solid var(--border);border-bottom:var(--bw) solid var(--border)}
+
+  /* gilded stepped frame */
+  .deco-frame{position:relative;border:var(--bw) solid var(--border);padding:2px}
+  .deco-frame::after{content:"";position:absolute;inset:5px;border:var(--bw) solid rgba(190,154,82,.5);pointer-events:none}
+
+  /* ---- nav (symmetric) ---- */
+  header{position:sticky;top:0;z-index:50;background:rgba(10,23,20,.82);backdrop-filter:blur(8px);border-bottom:var(--bw) solid var(--border)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:80px}
+  .logo{font-family:var(--font-display);font-size:26px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+  .logo .mark{width:26px;height:26px}
+  .nav-links{display:flex;gap:34px;list-style:none;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .nav-links a:hover{color:var(--accent)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:84px 0 96px;text-align:center;position:relative;overflow:hidden;border-bottom:var(--bw) solid var(--border)}
+  .sunburst{position:absolute;left:50%;top:-220px;transform:translateX(-50%);width:760px;max-width:130%;opacity:.5;pointer-events:none}
+  .hero .inner{position:relative;max-width:60ch;margin:0 auto}
+  .hero h1{font-size:clamp(46px,9vw,96px);margin:24px 0 22px}
+  .hero h1 em{font-style:italic}
+  .hero p{font-size:19px;max-width:46ch;margin:0 auto 34px;color:var(--muted)}
+  .hero-cta{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+
+  /* ---- social proof ---- */
+  .proof{border-bottom:var(--bw) solid var(--border)}
+  .proof .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 56px;align-items:center;padding:30px 30px;text-align:center}
+  .proof .stat b{display:block;font-family:var(--font-display);font-size:30px;color:var(--accent)}
+  .proof .stat span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .proof .sep{width:var(--bw);height:40px;background:var(--border);opacity:.5}
+  @media(max-width:760px){.proof .sep{display:none}}
+
+  /* ---- sections ---- */
+  section{padding:90px 0;border-bottom:var(--bw) solid var(--border)}
+  .sec-head{text-align:center;max-width:40ch;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent-2);margin-bottom:16px}
+  .sec-head h2{font-size:clamp(32px,5vw,56px)}
+  .sec-head p{font-size:18px;color:var(--muted);margin-top:16px}
+  .rule{width:80px;height:var(--bw);background:var(--gild);margin:22px auto 0}
+
+  /* ---- features (3 cards) ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:58px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--surface);padding:38px 30px;text-align:center;position:relative;border:var(--bw) solid var(--border)}
+  .card::before{content:"";position:absolute;inset:6px;border:var(--bw) solid rgba(190,154,82,.4);pointer-events:none}
+  .card .ic{width:72px;height:72px;margin:0 auto 22px}
+  .card h3{font-size:23px;margin-bottom:12px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- showcase: stepped suites ---- */
+  .showcase{margin-top:58px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:var(--bw) solid var(--border)}
+  @media(max-width:860px){.showcase{grid-template-columns:1fr}}
+  .suite{padding:34px 32px;border-bottom:var(--bw) solid var(--border);border-right:var(--bw) solid var(--border);position:relative}
+  .suite:nth-child(even){border-right:none}
+  @media(max-width:860px){.suite{border-right:none}}
+  .suite b{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent-2)}
+  .suite h3{font-size:26px;margin:8px 0 10px}
+  .suite .price{font-family:var(--font-display);font-size:22px;color:var(--accent);margin-bottom:10px}
+  .suite p{color:var(--muted);font-size:15px}
+
+  /* ---- testimonial ---- */
+  .quote{max-width:800px;margin:0 auto;text-align:center;position:relative;padding:0 20px}
+  .quote .arc{width:120px;margin:0 auto 28px}
+  .quote p{font-family:var(--font-display);font-style:italic;font-size:clamp(24px,3.6vw,38px);line-height:1.32}
+  .quote .who{margin-top:26px;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+
+  /* ---- CTA band ---- */
+  .cta-band{text-align:center;position:relative;overflow:hidden;background:var(--surface)}
+  .cta-band .rays{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;max-width:160%;opacity:.16;pointer-events:none}
+  .cta-band .inner{position:relative}
+  .cta-band h2{font-size:clamp(36px,6vw,68px)}
+  .cta-band p{font-size:18px;color:var(--muted);max-width:46ch;margin:18px auto 32px}
+
+  /* ---- footer + specimen ---- */
+  footer{padding:72px 0 32px;border:none;background:#081310}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px;font-size:15px;color:var(--muted)}
+  footer li a:hover{color:var(--accent)}
+  .specimen{margin-top:50px;padding:24px 26px;border:var(--bw) solid var(--border);display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;font-size:13px;position:relative}
+  .specimen::after{content:"";position:absolute;inset:5px;border:var(--bw) solid rgba(190,154,82,.4);pointer-events:none}
+  .specimen .no{font-family:var(--font-display);font-size:48px;color:var(--accent)}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .meta div{color:var(--muted)}
+  .specimen .axes span{display:inline-block;border:var(--bw) solid var(--border);padding:4px 10px;margin:3px;text-transform:uppercase;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+  .foot-note{margin-top:26px;color:var(--muted);opacity:.7;font-size:13px;text-align:center}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;background:var(--surface);color:var(--accent);
+    border:var(--bw) solid var(--border);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:11px 16px}
+  .atlas-badge:hover{background:var(--gild);color:#1a1208}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.4" fill="none"><circle cx="16" cy="16" r="6"/><path d="M16 2v6M16 24v6M2 16h6M24 16h6M6 6l4 4M22 22l4 4M26 6l-4 4M10 22l-4 4"/></g></svg>
+      Aurelia
+    </div>
+    <ul class="nav-links">
+      <li><a href="#suites">Suites</a></li>
+      <li><a href="#features">The Station</a></li>
+      <li><a href="#voices">Voyages</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+    <a href="#reserve" class="btn btn--primary">Reserve a berth</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <svg class="sunburst" viewBox="0 0 760 760" aria-hidden="true">
+    <defs><radialGradient id="g" cx="50%" cy="20%" r="70%"><stop offset="0%" stop-color="#f0d79a"/><stop offset="100%" stop-color="#a8823f"/></radialGradient></defs>
+    <g stroke="url(#g)" stroke-width="2">
+      <!-- symmetric rays -->
+      <g>
+        <line x1="380" y1="200" x2="380" y2="-60"/>
+        <line x1="380" y1="200" x2="300" y2="-40"/><line x1="380" y1="200" x2="460" y2="-40"/>
+        <line x1="380" y1="200" x2="220" y2="0"/><line x1="380" y1="200" x2="540" y2="0"/>
+        <line x1="380" y1="200" x2="140" y2="60"/><line x1="380" y1="200" x2="620" y2="60"/>
+        <line x1="380" y1="200" x2="70" y2="150"/><line x1="380" y1="200" x2="690" y2="150"/>
+        <line x1="380" y1="200" x2="30" y2="260"/><line x1="380" y1="200" x2="730" y2="260"/>
+      </g>
+      <circle cx="380" cy="200" r="120" fill="none"/>
+      <circle cx="380" cy="200" r="92" fill="none"/>
+      <circle cx="380" cy="200" r="64" fill="url(#g)" opacity=".25"/>
+    </g>
+  </svg>
+  <div class="wrap inner">
+    <span class="tag">Orbital Hotel · Low Earth Orbit · Est. 2031</span>
+    <h1>The sun never sets at <em class="gold-text">Aurelia.</em></h1>
+    <p>A gilded garden in orbit — fourteen luxury suites wrapped in living greenhouses, powered entirely by the star you'll watch rise sixteen times a day.</p>
+    <div class="hero-cta">
+      <a href="#reserve" class="btn btn--primary">Reserve a voyage →</a>
+      <a href="#suites" class="btn btn--ghost">Tour the suites</a>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="stat"><b>16×</b><span>sunrises daily</span></div>
+    <div class="sep"></div>
+    <div class="stat"><b>100%</b><span>solar powered</span></div>
+    <div class="sep"></div>
+    <div class="stat"><b>14</b><span>private suites</span></div>
+    <div class="sep"></div>
+    <div class="stat"><b>9 nights</b><span>per voyage</span></div>
+    <div class="sep"></div>
+    <div class="stat"><b>2,400</b><span>living plants aboard</span></div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The Station</p>
+      <h2>Opulence, in orbit, off the sun.</h2>
+      <p>Aurelia was engineered as a closed ecological palace — every comfort grown, gathered, and powered above the atmosphere.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <svg class="ic" viewBox="0 0 72 72" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.6" fill="none"><circle cx="36" cy="36" r="14"/><g><line x1="36" y1="6" x2="36" y2="18"/><line x1="36" y1="54" x2="36" y2="66"/><line x1="6" y1="36" x2="18" y2="36"/><line x1="54" y1="36" x2="66" y2="36"/><line x1="15" y1="15" x2="24" y2="24"/><line x1="48" y1="48" x2="57" y2="57"/><line x1="57" y1="15" x2="48" y2="24"/><line x1="24" y1="48" x2="15" y2="57"/></g></g></svg>
+        <h3>Solar Atrium</h3>
+        <p>A double-height ballroom of mirrored gold, drinking light through a stepped clerestory that tracks the sun.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 72 72" aria-hidden="true"><g stroke="var(--accent-2)" stroke-width="1.6" fill="none"><path d="M36 60V28"/><path d="M36 32c-14-3-20 8-20 8s14 9 22-2Z" fill="rgba(79,174,139,.25)"/><path d="M36 40c14-3 20 8 20 8s-14 9-22-2Z" fill="rgba(79,174,139,.25)"/><path d="M36 26c-2-12 8-18 8-18s4 12-8 18Z" fill="rgba(79,174,139,.25)"/></g></svg>
+        <h3>Hanging Gardens</h3>
+        <p>Tiered greenhouses spiral the hull — orchids, citrus, and ferns that scrub the air and set every table.</p>
+      </div>
+      <div class="card">
+        <svg class="ic" viewBox="0 0 72 72" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.6" fill="none"><rect x="20" y="20" width="32" height="32"/><rect x="26" y="26" width="20" height="20"/><line x1="36" y1="8" x2="36" y2="20"/><line x1="36" y1="52" x2="36" y2="64"/><line x1="8" y1="36" x2="20" y2="36"/><line x1="52" y1="36" x2="64" y2="36"/></g></svg>
+        <h3>Observation Deco</h3>
+        <p>A geometric viewing salon where the Earth turns beyond a single, faceted window of gilded glass.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="suites">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Accommodation</p>
+      <h2>Fourteen suites. One horizon.</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="showcase">
+      <div class="suite">
+        <b>Garden Tier</b>
+        <h3>The Verdant</h3>
+        <div class="price">$1.9M · per voyage</div>
+        <p>A living suite wrapped in trellised greenery, with a private herb wall and a window seat over the dawn line.</p>
+      </div>
+      <div class="suite">
+        <b>Sun Tier</b>
+        <h3>The Helios</h3>
+        <div class="price">$2.6M · per voyage</div>
+        <p>Gilded stepped ceilings and a heliostat that floods the chamber with managed, ever-shifting daylight.</p>
+      </div>
+      <div class="suite">
+        <b>Crown Tier</b>
+        <h3>The Aurelian</h3>
+        <div class="price">$4.4M · per voyage</div>
+        <p>The crown suite: a private atrium, a personal botanist, and unobstructed Earthrise from a curved gold balcony.</p>
+      </div>
+      <div class="suite">
+        <b>Atelier Tier</b>
+        <h3>The Conservatory</h3>
+        <div class="price">$3.1M · per voyage</div>
+        <p>A two-storey greenhouse residence for the gardener at heart, with its own pollinator dome and tasting terrace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="wrap">
+    <div class="quote">
+      <svg class="arc" viewBox="0 0 120 60" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.6" fill="none"><path d="M10 56a50 50 0 0 1 100 0"/><path d="M24 56a36 36 0 0 1 72 0"/><path d="M38 56a22 22 0 0 1 44 0"/></g></svg>
+      <p>“I have stayed in every grand hotel on Earth. None of them grow you breakfast and hand you a sunrise every ninety minutes. Aurelia is the only address left worth the climb.”</p>
+      <div class="who">— The Marchesa di Velo, Voyage III</div>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" class="cta-band">
+  <svg class="rays" viewBox="0 0 900 900" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.4">
+    <line x1="450" y1="450" x2="450" y2="0"/><line x1="450" y1="450" x2="450" y2="900"/><line x1="450" y1="450" x2="0" y2="450"/><line x1="450" y1="450" x2="900" y2="450"/>
+    <line x1="450" y1="450" x2="120" y2="120"/><line x1="450" y1="450" x2="780" y2="780"/><line x1="450" y1="450" x2="780" y2="120"/><line x1="450" y1="450" x2="120" y2="780"/>
+    <line x1="450" y1="450" x2="60" y2="280"/><line x1="450" y1="450" x2="840" y2="620"/><line x1="450" y1="450" x2="840" y2="280"/><line x1="450" y1="450" x2="60" y2="620"/>
+    <line x1="450" y1="450" x2="280" y2="60"/><line x1="450" y1="450" x2="620" y2="840"/><line x1="450" y1="450" x2="620" y2="60"/><line x1="450" y1="450" x2="280" y2="840"/>
+    <circle cx="450" cy="450" r="180" fill="none"/><circle cx="450" cy="450" r="120" fill="none"/>
+  </g></svg>
+  <div class="wrap inner">
+    <h2>Voyage IV departs spring 2032.</h2>
+    <p>A limited manifest of fourteen guests. Reservations open to our registry; a private interview precedes every berth.</p>
+    <a href="#" class="btn btn--primary" style="font-size:14px;padding:18px 40px">Request an invitation →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:28px">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.4" fill="none"><circle cx="16" cy="16" r="6"/><path d="M16 2v6M16 24v6M2 16h6M24 16h6M6 6l4 4M22 22l4 4M26 6l-4 4M10 22l-4 4"/></g></svg>
+          Aurelia
+        </div>
+        <p style="margin-top:16px;max-width:34ch;color:var(--muted)">A gilded garden in low Earth orbit. Powered by the sun, grown by hand, opened in 2031.</p>
+      </div>
+      <div><h4>The Station</h4><ul><li><a href="#">Suites</a></li><li><a href="#">Gardens</a></li><li><a href="#">Dining</a></li><li><a href="#">Atrium</a></li></ul></div>
+      <div><h4>Voyages</h4><ul><li><a href="#">Manifest</a></li><li><a href="#">Boarding</a></li><li><a href="#">Registry</a></li><li><a href="#">Safety</a></li></ul></div>
+      <div><h4>Aurelia</h4><ul><li><a href="#">Vision</a></li><li><a href="#">Press</a></li><li><a href="#">Terms</a></li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">11</div>
+      <div class="meta">
+        <div><b>SOLAR DECO</b> · Invented family</div>
+        <div style="margin-top:5px">Symmetric sunbursts, stepped gilt frames and night-green opulence — but the future is verdant, not chrome. Lineage: 1920s Art Deco (Chrysler/Gatsby) × Solarpunk — Deco brings ray motifs, gold &amp; serif grandeur; Solarpunk brings the living greenery, sun-worship &amp; clean-energy optimism.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Deep</span><span>Energy: Opulent</span>
+      </div>
+    </div>
+    <p class="foot-note">Specimen 11 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 11</a>
+
+</body>
+</html>
