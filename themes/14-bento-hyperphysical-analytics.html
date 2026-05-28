@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumion — Bento Hyperphysical · Design Themes Atlas</title>
+<!--
+  SPECIMEN 14 · BENTO HYPERPHYSICAL · Invented family
+  Topic: product analytics dashboard SaaS (brand: Lumion)
+  Axes — Structure: Rigid · Surface: Deep · Energy: Sleek
+  Hybrid logic: parent A = Apple keynote "bento grid" (tight grid of rounded
+  rectangular tiles of varying sizes, each a self-contained module, generous
+  rounding, calm composition). Parent B = hyper-real material / dark-mode UI
+  (rich gradients, glowing neon data-viz, soft elevation shadows, frosted
+  edges, premium depth). A donates the modular tile grid & rigid rhythm;
+  B donates the deep material surface, glow and elevation.
+-->
+<style>
+  :root{
+    /* ---- shared token spine ---- */
+    --bg:#07080d;            /* near-black page       */
+    --surface:#11131c;       /* tile surface          */
+    --fg:#f3f5fb;            /* primary text          */
+    --muted:#8b91a7;         /* secondary text        */
+    --accent:#5b8cff;        /* electric blue         */
+    --accent-2:#9d6bff;      /* violet                */
+    --border:#23283a;        /* tile hairline         */
+    --radius:22px;           /* generous bento round  */
+    --shadow:0 24px 60px -20px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);
+    --font-display:"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+    --font-body:"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    --space:8px;
+    --maxw:1180px;
+    --tile-grad:linear-gradient(160deg,rgba(91,140,255,.14),rgba(157,107,255,.05) 60%,transparent);
+    --glow-b:0 0 24px rgba(91,140,255,.5);
+    --glow-v:0 0 24px rgba(157,107,255,.5);
+    --teal:#3fe0c8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:
+      radial-gradient(900px 600px at 85% -10%, rgba(91,140,255,.16), transparent 55%),
+      radial-gradient(800px 500px at 0% 20%, rgba(157,107,255,.12), transparent 55%),
+      var(--bg);
+    color:var(--fg);font-family:var(--font-body);line-height:1.55;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;letter-spacing:-.025em;line-height:1.04}
+  .eyebrow{font-size:13px;letter-spacing:.04em;font-weight:600;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;text-decoration:none;
+    cursor:pointer;padding:13px 22px;border-radius:14px;border:1px solid var(--border);
+    background:var(--surface);color:var(--fg);transition:.18s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .btn--primary{background:linear-gradient(160deg,var(--accent),var(--accent-2));border:none;color:#fff;
+    box-shadow:0 10px 30px -8px rgba(91,140,255,.6)}
+  .btn--primary:hover{box-shadow:0 14px 40px -8px rgba(91,140,255,.8)}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);
+    padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface)}
+  .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;background:rgba(7,8,13,.7);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-family:var(--font-display);font-size:21px;font-weight:700;display:flex;align-items:center;gap:9px}
+  .logo .mark{width:24px;height:24px;border-radius:8px;background:linear-gradient(160deg,var(--accent),var(--accent-2));
+    box-shadow:var(--glow-b)}
+  .nav-links{display:flex;gap:30px;list-style:none;font-size:15px;font-weight:500}
+  .nav-links a{text-decoration:none;color:var(--muted)}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 80px}
+  .hero-head{text-align:center;max-width:780px;margin:0 auto 48px}
+  .hero h1{font-size:clamp(38px,6.6vw,68px);margin:16px 0 18px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--teal));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:18px;color:var(--muted);max-width:54ch;margin:0 auto 26px}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* ---- bento grid ---- */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:18px}
+  @media(max-width:860px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}}
+  @media(max-width:520px){.bento{grid-template-columns:1fr}}
+  .tile{position:relative;border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--surface);box-shadow:var(--shadow);padding:22px;overflow:hidden}
+  .tile::before{content:"";position:absolute;inset:0;background:var(--tile-grad);pointer-events:none}
+  .tile>*{position:relative;z-index:1}
+  .tile .k{font-size:12px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;font-weight:600}
+  .tile .big{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;
+    font-size:clamp(28px,3.6vw,42px);margin-top:6px}
+  .tile .delta{font-size:13px;font-weight:600;color:var(--teal);margin-top:4px}
+  .tile .delta.down{color:#ff6b8a}
+  .t-wide{grid-column:span 2}
+  .t-tall{grid-row:span 2}
+  .t-big{grid-column:span 2;grid-row:span 2}
+
+  /* bars */
+  .bars{display:flex;align-items:flex-end;gap:7px;height:78px;margin-top:auto}
+  .bars i{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,var(--accent),rgba(91,140,255,.2));
+    box-shadow:var(--glow-b)}
+  .tile.flexcol{display:flex;flex-direction:column}
+  /* donut */
+  .donut{width:96px;height:96px;border-radius:50%;margin:8px auto 0;
+    background:conic-gradient(var(--accent) 0 62%,var(--accent-2) 62% 84%,var(--border) 84% 100%);
+    -webkit-mask:radial-gradient(circle 30px at center,transparent 99%,#000 100%);
+    mask:radial-gradient(circle 30px at center,transparent 99%,#000 100%);box-shadow:var(--glow-b)}
+
+  /* ---- social proof ---- */
+  .proof{padding:30px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .proof .wrap{display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;
+    color:var(--muted);font-weight:600;font-size:15px;letter-spacing:.02em}
+  .proof b{color:var(--fg)}
+
+  /* ---- sections ---- */
+  section{padding:96px 0}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 52px}
+  .sec-head h2{font-size:clamp(28px,4.4vw,46px)}
+  .sec-head p{color:var(--muted);margin-top:14px;font-size:17px}
+
+  /* features = bento again */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.feat{grid-template-columns:1fr}}
+  .card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:30px;position:relative;overflow:hidden;transition:.18s}
+  .card::before{content:"";position:absolute;inset:0;background:var(--tile-grad)}
+  .card>*{position:relative;z-index:1}
+  .card:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .card .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:18px;
+    background:linear-gradient(160deg,var(--accent),var(--accent-2));box-shadow:var(--glow-b)}
+  .card .ic svg{width:24px;height:24px}
+  .card h3{font-size:20px;margin-bottom:9px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* showcase — big bento dashboard */
+  .showcase .bento{grid-auto-rows:160px}
+  .spark{margin-top:auto}
+  .legend{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
+
+  /* testimonial */
+  .quote{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:54px;max-width:840px;margin:0 auto;text-align:center;position:relative;overflow:hidden}
+  .quote::before{content:"";position:absolute;inset:0;background:var(--tile-grad)}
+  .quote>*{position:relative;z-index:1}
+  .quote p{font-family:var(--font-display);font-size:clamp(22px,3.2vw,32px);font-weight:600;
+    letter-spacing:-.02em;line-height:1.3}
+  .quote em{font-style:normal;color:var(--accent)}
+  .quote .who{margin-top:24px;color:var(--muted);font-size:14px;font-weight:600}
+
+  /* CTA band */
+  .cta-band{text-align:center}
+  .cta-wrap{border:1px solid var(--border);border-radius:32px;background:
+      radial-gradient(600px 300px at 50% 0%, rgba(91,140,255,.22), transparent 70%),var(--surface);
+    box-shadow:var(--shadow);padding:72px 32px;position:relative;overflow:hidden}
+  .cta-band h2{font-size:clamp(32px,5.4vw,58px)}
+  .cta-band p{color:var(--muted);margin:16px 0 30px;font-size:18px}
+
+  /* footer */
+  footer{padding:80px 0 32px;border-top:1px solid var(--border)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-size:13px;letter-spacing:.04em;color:var(--fg);margin-bottom:16px;font-weight:600}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px;font-size:14px;color:var(--muted)}
+  .specimen{margin-top:56px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;
+    align-items:center;font-size:13px;position:relative;overflow:hidden}
+  .specimen::before{content:"";position:absolute;inset:0;background:var(--tile-grad)}
+  .specimen>*{position:relative;z-index:1}
+  .specimen .no{font-family:var(--font-display);font-size:48px;font-weight:700;
+    background:linear-gradient(160deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .meta div:last-child{color:var(--muted);margin-top:5px;line-height:1.5}
+  .specimen .axes span{display:inline-block;border:1px solid var(--border);padding:4px 10px;margin:2px;
+    border-radius:999px;font-size:11px;letter-spacing:.04em;color:var(--muted)}
+  .atlas-badge{position:fixed;right:16px;bottom:16px;z-index:60;border-radius:16px;
+    background:rgba(17,19,28,.8);backdrop-filter:blur(10px);color:var(--fg);border:1px solid var(--accent);
+    box-shadow:var(--glow-b);font-size:13px;font-weight:600;padding:11px 15px;text-decoration:none}
+  .atlas-badge:hover{background:linear-gradient(160deg,var(--accent),var(--accent-2))}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="mark"></span>Lumion</div>
+    <ul class="nav-links">
+      <li><a href="#features">Platform</a></li>
+      <li><a href="#dash">Dashboards</a></li>
+      <li><a href="#proof">Customers</a></li>
+      <li><a href="#cta">Pricing</a></li>
+    </ul>
+    <a href="#cta" class="btn btn--primary">Start free</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-head">
+      <span class="tag"><span class="dot"></span>Live · 2.1B events / day</span>
+      <h1>Product analytics with <em>depth</em>, not dashboards-of-dashboards.</h1>
+      <p>Lumion turns raw product events into bento-clean answers. Funnels, retention and revenue — one self-contained tile at a time.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn btn--primary">Start free → no card</a>
+        <a href="#dash" class="btn">See a live demo</a>
+      </div>
+    </div>
+
+    <div class="bento" aria-hidden="true">
+      <div class="tile flexcol t-big">
+        <div class="k">Weekly active users</div>
+        <div class="big">1.84M</div>
+        <div class="delta">▲ 12.4% vs last week</div>
+        <div class="bars">
+          <i style="height:42%"></i><i style="height:55%"></i><i style="height:48%"></i>
+          <i style="height:68%"></i><i style="height:60%"></i><i style="height:82%"></i>
+          <i style="height:74%"></i><i style="height:94%"></i>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="k">Conversion</div>
+        <div class="big">6.7%</div>
+        <div class="delta">▲ 0.9 pts</div>
+      </div>
+      <div class="tile">
+        <div class="k">Churn</div>
+        <div class="big">2.1%</div>
+        <div class="delta down">▼ 0.3 pts</div>
+      </div>
+      <div class="tile flexcol t-wide">
+        <div class="k">MRR</div>
+        <div class="big">$418k</div>
+        <svg class="spark" viewBox="0 0 240 46" preserveAspectRatio="none" style="height:46px;width:100%">
+          <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3fe0c8" stop-opacity=".5"/><stop offset="1" stop-color="#3fe0c8" stop-opacity="0"/>
+          </linearGradient></defs>
+          <polyline points="0,38 30,32 60,34 90,24 120,26 150,16 180,18 210,9 240,6" fill="none" stroke="#3fe0c8" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="0,38 30,32 60,34 90,24 120,26 150,16 180,18 210,9 240,6 240,46 0,46" fill="url(#sg)"/>
+        </svg>
+      </div>
+      <div class="tile flexcol">
+        <div class="k">Plan mix</div>
+        <div class="donut"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof">
+  <div class="wrap">
+    <span>Trusted by data teams at</span>
+    <b>NORTHWIND</b><b>VERTEX</b><b>HELio</b><b>PARABOLA</b><b>QUANTA</b>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The platform</span>
+      <h2>Every metric in its own little box.</h2>
+      <p>The bento discipline isn't decoration — it's how teams stop drowning in twelve-chart dashboards.</p>
+    </div>
+    <div class="feat">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 17l5-5 4 4 8-9"/></svg></div>
+        <h3>Funnels that explain themselves</h3>
+        <p>Drop in events, get a depth-rendered funnel with drop-off reasons surfaced as their own tiles.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Real-time retention</h3>
+        <p>Cohorts update as events stream in. Glowing heatmaps make the second-week cliff impossible to miss.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7"/></svg></div>
+        <h3>Revenue, attributed</h3>
+        <p>Tie every dollar to the feature, campaign and cohort that earned it — no warehouse SQL required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dash" class="showcase">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A live board</span>
+      <h2>One screen. Every answer.</h2>
+      <p>This is a real Lumion board, composed entirely from modular tiles you can rearrange.</p>
+    </div>
+    <div class="bento" aria-hidden="true">
+      <div class="tile flexcol t-tall">
+        <div class="k">Activation by source</div>
+        <div class="bars" style="height:auto;flex:1">
+          <i style="height:54%"></i><i style="height:80%;background:linear-gradient(180deg,var(--accent-2),rgba(157,107,255,.2));box-shadow:var(--glow-v)"></i>
+          <i style="height:38%"></i><i style="height:66%"></i><i style="height:90%;background:linear-gradient(180deg,var(--teal),rgba(63,224,200,.2))"></i>
+        </div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Organic</span><span><i style="background:var(--accent-2)"></i>Paid</span><span><i style="background:var(--teal)"></i>Referral</span></div>
+      </div>
+      <div class="tile"><div class="k">Sessions</div><div class="big">92.3k</div><div class="delta">▲ 4.1%</div></div>
+      <div class="tile"><div class="k">Avg. session</div><div class="big">7m 12s</div><div class="delta">▲ 0:41</div></div>
+      <div class="tile flexcol t-wide">
+        <div class="k">Retention curve</div>
+        <svg class="spark" viewBox="0 0 240 56" preserveAspectRatio="none" style="height:56px;width:100%">
+          <polyline points="0,6 40,20 80,30 120,36 160,40 200,42 240,43" fill="none" stroke="#5b8cff" stroke-width="2.5" stroke-linecap="round"/>
+          <polyline points="0,6 40,16 80,22 120,25 160,27 200,28 240,29" fill="none" stroke="#9d6bff" stroke-width="2" stroke-dasharray="4 4"/>
+        </svg>
+      </div>
+      <div class="tile"><div class="k">NRR</div><div class="big">118%</div><div class="delta">▲ 3 pts</div></div>
+      <div class="tile flexcol t-wide">
+        <div class="k">Feature adoption</div>
+        <div class="bars">
+          <i style="height:88%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:44%"></i><i style="height:30%"></i><i style="height:22%"></i>
+        </div>
+      </div>
+      <div class="tile flexcol"><div class="k">Health</div><div class="donut" style="background:conic-gradient(var(--teal) 0 78%,var(--border) 78% 100%)"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="quote">
+      <p>“We replaced four BI tools and a half-built warehouse with Lumion. Our PMs finally read the dashboard because <em>each tile answers exactly one question.</em>”</p>
+      <div class="who">— Dana Okafor, VP Product, Parabola</div>
+    </div>
+  </div>
+</section>
+
+<section id="cta" class="cta-band">
+  <div class="wrap">
+    <div class="cta-wrap">
+      <h2>See your product in bento.</h2>
+      <p>Free for 1M events / month. Connect a source and get your first board in minutes.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn--primary" style="font-size:17px;padding:16px 30px">Start free</a>
+        <a href="#" class="btn" style="font-size:17px;padding:16px 30px">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:23px"><span class="mark"></span>Lumion</div>
+        <p style="margin-top:16px;max-width:38ch;color:var(--muted);font-size:14px">Deep, glowing product analytics — one self-contained tile at a time.</p>
+      </div>
+      <div><h4>Product</h4><ul><li>Funnels</li><li>Retention</li><li>Revenue</li><li>Boards</li></ul></div>
+      <div><h4>Developers</h4><ul><li>SDKs</li><li>API</li><li>Webhooks</li><li>Status</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>Security</li><li>Careers</li><li>Contact</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">14</div>
+      <div class="meta">
+        <div><b>BENTO HYPERPHYSICAL</b> · Invented family</div>
+        <div>The Apple keynote bento grid — tight, varied, rounded tiles — rendered with hyper-real material depth: deep dark surfaces, glowing neon data-viz, soft elevation and frosted edges. Lineage: Apple bento keynote slides × hyper-real material / dark-mode UI.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Deep</span><span>Energy: Sleek</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted);font-size:13px">Specimen 14 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="../index.html">◈ Atlas · 14</a>
+
+</body>
+</html>
