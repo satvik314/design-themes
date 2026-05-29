@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paytide — Corporate Memphis · Design Themes Atlas</title>
+<!--
+  SPECIMEN 02 · CORPORATE MEMPHIS · Heritage family
+  Topic: HR & payroll SaaS for small teams (Paytide)
+  Axes — Structure: Loose · Surface: Flat · Energy: Friendly
+  Logic: the ubiquitous "big tech" flat-illustration look. Soft pastels with one
+  bright coral accent, everything rounded, friendly geometric sans, no hard shadows.
+  Inline-SVG blob-people with oversized limbs and scattered confetti shapes make it
+  cheerful and approachable. Lineage: Buck/Alegria (Facebook/Google) → Humaaans/Open Peeps → 2018-22 SaaS.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#fdf6f0;            /* warm off-white page  */
+    --surface:#ffffff;       /* card / panel surface */
+    --fg:#2a2540;            /* primary text         */
+    --muted:#7a7596;         /* secondary text       */
+    --accent:#ff6b5e;        /* bright coral accent  */
+    --accent-2:#6c63ff;      /* friendly periwinkle  */
+    --border:#efe7f0;        /* soft border          */
+    --radius:18px;           /* generous rounding    */
+    --shadow:0 2px 6px rgba(108,99,255,.08);   /* soft tiny shadow */
+    --shadow-lg:0 8px 24px rgba(108,99,255,.10);
+    --font-display:"Verdana","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    --font-body:"Trebuchet MS","Segoe UI",Verdana,system-ui,sans-serif;
+    --space:8px;
+    --maxw:1120px;
+    /* theme extras */
+    --mint:#8fe3c4;
+    --butter:#ffd770;
+    --sky:#a5c8ff;
+    --rose:#ffb3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-.01em;line-height:1.08;font-weight:700}
+  .btn{
+    display:inline-block;font-family:var(--font-display);font-weight:700;
+    font-size:15px;text-decoration:none;cursor:pointer;
+    padding:14px 26px;border-radius:999px;border:2px solid transparent;
+    background:var(--surface);color:var(--fg);box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .btn--primary{background:var(--accent);color:#fff}
+  .btn--ghost{background:var(--surface);border-color:var(--border)}
+  .tag{display:inline-flex;align-items:center;gap:8px;background:#efeaff;color:var(--accent-2);
+    font-family:var(--font-display);font-weight:700;font-size:13px;padding:7px 16px;border-radius:999px}
+  .tag .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+  /* ---- nav ---- */
+  header{background:rgba(253,246,240,.85);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:23px;font-weight:700}
+  .logo svg{display:block}
+  .nav-links{display:flex;gap:30px;list-style:none;font-weight:700;font-size:15px}
+  .nav-links a{text-decoration:none;color:var(--muted)}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- confetti shapes ---- */
+  .confetti{position:absolute;pointer-events:none;z-index:0}
+  .c-circle{border-radius:50%}
+  .c-plus{font-family:var(--font-display);font-weight:700;line-height:1}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(6deg)}}
+  @keyframes bob2{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+  .float{animation:bob 6s ease-in-out infinite}
+  .float2{animation:bob2 7s ease-in-out infinite}
+
+  /* ---- hero ---- */
+  .hero{padding:70px 0 86px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:2}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(38px,6.6vw,66px);margin:20px 0 20px}
+  .hero h1 em{font-style:normal;color:var(--accent);position:relative}
+  .hero h1 em:after{content:"";position:absolute;left:0;right:0;bottom:4px;height:10px;background:var(--butter);border-radius:8px;z-index:-1;opacity:.7}
+  .hero p{font-size:19px;max-width:40ch;color:var(--muted);margin-bottom:30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-art{position:relative}
+  .scene{background:#eef0ff;border-radius:28px;padding:18px;box-shadow:var(--shadow-lg)}
+
+  /* ---- social proof ---- */
+  .proof{padding:30px 0 6px}
+  .proof-inner{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 36px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  @media(max-width:760px){.proof-inner{grid-template-columns:1fr 1fr}}
+  .proof .big{font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--accent-2)}
+  .proof .lbl{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* ---- section scaffold ---- */
+  section{padding:80px 0;position:relative;overflow:hidden}
+  .eyebrow{font-family:var(--font-display);font-weight:700;color:var(--accent);font-size:14px;letter-spacing:.04em;margin-bottom:10px}
+  .sec-head{text-align:center;max-width:42ch;margin:0 auto}
+  .sec-head h2{font-size:clamp(28px,4.4vw,46px)}
+  .sec-head p{font-size:18px;max-width:48ch;margin:14px auto 0;color:var(--muted)}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px;position:relative;z-index:2}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{border-radius:var(--radius);background:var(--surface);padding:30px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .card .ico{width:64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:#eef0ff}
+  .card:nth-child(2) .ico{background:#fff0ee}
+  .card:nth-child(3) .ico{background:#eafaf2}
+  .card h3{font-size:21px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- showcase / how it works grid ---- */
+  .showcase{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:50px;position:relative;z-index:2}
+  @media(max-width:860px){.showcase{grid-template-columns:1fr}}
+  .step{background:var(--surface);border-radius:var(--radius);padding:28px 30px;box-shadow:var(--shadow);display:flex;gap:20px;align-items:flex-start}
+  .step .n{flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent-2);color:#fff;
+    font-family:var(--font-display);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .step:nth-child(2) .n{background:var(--accent)}
+  .step:nth-child(3) .n{background:var(--mint);color:var(--fg)}
+  .step:nth-child(4) .n{background:var(--butter);color:var(--fg)}
+  .step h3{font-size:18px;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* ---- testimonial ---- */
+  .quote-wrap{position:relative;z-index:2}
+  .quote{background:var(--accent-2);color:#fff;border-radius:28px;padding:50px;max-width:780px;margin:0 auto;text-align:center;box-shadow:var(--shadow-lg)}
+  .quote p{font-family:var(--font-display);font-weight:700;font-size:clamp(20px,3vw,30px);line-height:1.25}
+  .quote .who{margin-top:24px;font-size:15px;font-weight:700;opacity:.85}
+
+  /* ---- CTA band / signup ---- */
+  .cta-band{background:linear-gradient(135deg,#fff0ee,#eef0ff);border-radius:32px;text-align:center;margin:0 24px;padding:64px 24px}
+  .cta-band h2{font-size:clamp(30px,5vw,52px)}
+  .cta-band p{color:var(--muted);font-size:18px;margin:14px auto 26px;max-width:46ch}
+  .signup{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .signup input{flex:1;min-width:220px;border:2px solid var(--border);background:#fff;border-radius:999px;padding:14px 20px;font-family:var(--font-body);font-size:15px}
+  .signup input:focus{outline:none;border-color:var(--accent-2)}
+  .price{margin-top:18px;color:var(--muted);font-size:14px}
+  .price b{color:var(--fg)}
+
+  /* ---- footer + specimen card ---- */
+  footer{background:#272240;color:#e9e6f5;padding:64px 0 30px;margin-top:80px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--accent);margin-bottom:14px;letter-spacing:.04em}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px;font-size:15px;opacity:.8}
+  footer .logo{color:#fff}
+  .specimen{margin-top:48px;border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:24px 26px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;font-size:13px;background:rgba(255,255,255,.04)}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr}}
+  .specimen .no{font-family:var(--font-display);font-weight:700;font-size:40px;color:var(--accent)}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .meta .desc{opacity:.78;margin-top:5px;line-height:1.5}
+  .specimen .axes span{display:inline-block;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 12px;margin:3px 3px 0 0;font-size:11px}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;background:var(--surface);color:var(--fg);
+    border-radius:999px;box-shadow:var(--shadow-lg);font-family:var(--font-display);font-weight:700;
+    font-size:13px;padding:11px 16px;text-decoration:none;border:2px solid var(--accent)}
+  .atlas-badge:hover{background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#6c63ff"/><path d="M9 20V10c3-1 9-1 9 3s-6 3-9 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+      Paytide
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#proof">Customers</a></li>
+      <li><a href="#join">Pricing</a></li>
+    </ul>
+    <a href="#join" class="btn btn--primary">Start free</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <!-- confetti -->
+  <div class="confetti c-circle float" style="width:22px;height:22px;background:var(--butter);top:120px;left:6%"></div>
+  <div class="confetti c-plus float2" style="color:var(--accent-2);font-size:30px;top:60px;right:46%">+</div>
+  <div class="confetti float" style="top:300px;left:42%">
+    <svg width="40" height="20" viewBox="0 0 40 20" aria-hidden="true"><path d="M2 18 Q11 2 20 18 T38 18" fill="none" stroke="#ff6b5e" stroke-width="3" stroke-linecap="round"/></svg>
+  </div>
+  <div class="confetti c-circle float2" style="width:14px;height:14px;background:var(--mint);bottom:60px;left:30%"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag"><span class="dot"></span> Payroll that runs itself</span>
+      <h1>Pay your team in <em>two clicks</em>, not two days.</h1>
+      <p>Paytide handles payroll, benefits, and compliance for small teams — so founders can stop spreadsheet-wrangling and get back to building.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn--primary">Start free trial →</a>
+        <a href="#how" class="btn btn--ghost">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="scene">
+        <!-- blob-people illustration -->
+        <svg viewBox="0 0 400 320" width="100%" role="img" aria-label="Two friendly figures running payroll">
+          <rect x="0" y="0" width="400" height="320" rx="22" fill="#eef0ff"/>
+          <circle cx="320" cy="60" r="34" fill="#ffd770" opacity=".7"/>
+          <circle cx="60" cy="250" r="20" fill="#8fe3c4" opacity=".8"/>
+          <!-- floating pay card -->
+          <g transform="translate(232,120)">
+            <rect width="140" height="92" rx="16" fill="#ffffff"/>
+            <rect x="16" y="18" width="60" height="9" rx="4.5" fill="#6c63ff"/>
+            <rect x="16" y="38" width="100" height="7" rx="3.5" fill="#e3e0f5"/>
+            <rect x="16" y="54" width="80" height="7" rx="3.5" fill="#e3e0f5"/>
+            <circle cx="108" cy="70" r="14" fill="#ff6b5e"/>
+            <path d="M101 70l5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <!-- figure 1 -->
+          <g transform="translate(40,90)">
+            <circle cx="46" cy="34" r="26" fill="#2a2540"/>
+            <path d="M30 30q16-14 32 0" fill="none" stroke="#ff6b5e" stroke-width="0"/>
+            <rect x="22" y="62" width="48" height="86" rx="24" fill="#6c63ff"/>
+            <rect x="-2" y="74" width="22" height="64" rx="11" fill="#ff6b5e" transform="rotate(18 9 106)"/>
+            <rect x="70" y="70" width="22" height="58" rx="11" fill="#6c63ff" transform="rotate(-22 81 99)"/>
+            <rect x="26" y="146" width="16" height="50" rx="8" fill="#2a2540"/>
+            <rect x="50" y="146" width="16" height="50" rx="8" fill="#2a2540"/>
+          </g>
+          <!-- figure 2 -->
+          <g transform="translate(140,120)">
+            <circle cx="40" cy="30" r="22" fill="#ffb3c7"/>
+            <rect x="18" y="54" width="44" height="74" rx="22" fill="#8fe3c4"/>
+            <rect x="2" y="60" width="20" height="56" rx="10" fill="#8fe3c4" transform="rotate(20 12 88)"/>
+            <rect x="58" y="56" width="20" height="60" rx="10" fill="#ffb3c7" transform="rotate(-26 68 86)"/>
+            <rect x="22" y="126" width="14" height="44" rx="7" fill="#2a2540"/>
+            <rect x="44" y="126" width="14" height="44" rx="7" fill="#2a2540"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="proof-strip">
+  <div class="wrap">
+    <div class="proof-inner">
+      <div><div class="big">7,200+</div><div class="lbl">teams paid on time</div></div>
+      <div><div class="big">2 min</div><div class="lbl">average payroll run</div></div>
+      <div><div class="big">50</div><div class="lbl">states &amp; filings covered</div></div>
+      <div><div class="big">4.9★</div><div class="lbl">on every review site</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <!-- confetti -->
+  <div class="confetti c-circle float2" style="width:18px;height:18px;background:var(--rose);top:40px;right:8%"></div>
+  <div class="confetti c-plus float" style="color:var(--mint);font-size:26px;bottom:50px;left:5%">+</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Everything in one place</p>
+      <h2>HR busywork, finally on autopilot</h2>
+      <p>Paytide brings payroll, benefits, and compliance together so nothing slips through the cracks.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="4" y="7" width="22" height="16" rx="4" fill="#6c63ff"/><rect x="4" y="11" width="22" height="3" fill="#fff"/><circle cx="9" cy="19" r="2" fill="#fff"/></svg></div>
+        <h3>One-click payroll</h3>
+        <p>Run salaried and hourly pay together, with taxes calculated and filed automatically every cycle.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 5l9 4v6c0 6-4 9-9 11-5-2-9-5-9-11V9z" fill="#ff6b5e"/><path d="M11 15l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Compliance built in</h3>
+        <p>New-hire reporting, W-2s, 1099s, and state filings handled for you. We sweat the deadlines.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="#8fe3c4"/><circle cx="20" cy="20" r="6" fill="#6c63ff"/></svg></div>
+        <h3>Benefits people love</h3>
+        <p>Offer health, dental, and 401(k) in minutes. Employees self-enroll from a friendly dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="confetti c-circle float" style="width:16px;height:16px;background:var(--sky);top:70px;left:9%"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>From onboarding to payday in four friendly steps</h2>
+    </div>
+    <div class="showcase">
+      <div class="step"><div class="n">1</div><div><h3>Add your team</h3><p>Invite employees and contractors by email. They fill in their own details, securely.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h3>Connect your bank</h3><p>Link an account once. Paytide verifies it instantly and you're ready to pay.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h3>Run payroll</h3><p>Review the numbers, hit Approve, and direct deposits go out — taxes withheld and filed.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h3>Relax at year-end</h3><p>W-2s and 1099s generate automatically and land in everyone's inbox. No scramble.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof" class="quote-wrap">
+  <div class="confetti c-plus float2" style="color:var(--accent);font-size:28px;top:50px;right:10%">+</div>
+  <div class="wrap">
+    <div class="quote">
+      <p>“We switched to Paytide on a Friday and ran our first payroll the same afternoon. It used to eat half my week — now it's coffee-and-done.”</p>
+      <div class="who">— Dana Whitfield, Founder &amp; CEO at Marlow Studio</div>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="cta-band">
+    <h2>Payday, minus the panic.</h2>
+    <p>Start a free 30-day trial. No card required, no setup fees, cancel any time.</p>
+    <form class="signup" onsubmit="return false">
+      <input type="email" placeholder="you@yourcompany.com" aria-label="Work email">
+      <button class="btn btn--primary" type="submit">Get started →</button>
+    </form>
+    <p class="price">From <b>$8/employee/mo</b> + $40 base · free to try for 30 days</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:24px;display:flex;align-items:center;gap:10px">
+          <svg width="26" height="26" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#ff6b5e"/><path d="M9 20V10c3-1 9-1 9 3s-6 3-9 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+          Paytide
+        </div>
+        <p style="margin-top:14px;max-width:34ch;opacity:.78">Friendly payroll and HR for small teams who'd rather be building.</p>
+      </div>
+      <div><h4>Product</h4><ul><li>Payroll</li><li>Benefits</li><li>Compliance</li><li>Pricing</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>Blog</li><li>Careers</li><li>Contact</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Terms</li><li>Privacy</li><li>Security</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">02</div>
+      <div class="meta">
+        <div><b>CORPORATE MEMPHIS</b> · Heritage family</div>
+        <div class="desc">Soft pastels, one bright accent, rounded everything and blob-people with oversized limbs. Cheerful and approachable in the knowing big-tech way. Lineage: Buck/Alegria (Facebook &amp; Google) → Humaaans/Open Peeps → every 2018–2022 SaaS.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Loose</span><span>Surface: Flat</span><span>Energy: Friendly</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;opacity:.55;font-size:13px">Specimen 02 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="/">◈ Atlas · 02</a>
+
+</body>
+</html>

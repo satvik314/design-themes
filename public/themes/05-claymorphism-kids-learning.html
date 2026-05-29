@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plump — Claymorphism · Design Themes Atlas</title>
+<!--
+  SPECIMEN 05 · CLAYMORPHISM · Heritage family
+  Topic: kids' learning app (ages 4-8), brand "Plump"
+  Axes — Structure: Loose · Surface: Deep · Energy: Playful
+  Logic: every surface looks like soft inflated plasticine. Large radii,
+  candy pastels, and a signature clay shadow (soft outer drop + inset light
+  highlight on top + inset dark shadow on bottom) make elements squishy and
+  pressable. Floating rounded blobs and chunky friendly type keep it joyful.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#fdeef4;            /* page background      */
+    --surface:#ffffff;       /* card / panel surface */
+    --fg:#5a4a6a;            /* primary text         */
+    --muted:#9a8caa;         /* secondary text       */
+    --accent:#ff8fb1;        /* primary accent (bubblegum) */
+    --accent-2:#7ec8e3;      /* secondary accent (sky)     */
+    --border:#ffd9e6;        /* soft border colour   */
+    --radius:34px;           /* big puffy radius     */
+    --shadow:
+      0 18px 34px -12px rgba(176,120,160,.45),
+      inset 0 8px 12px rgba(255,255,255,.9),
+      inset 0 -12px 16px rgba(176,120,160,.30); /* signature clay shadow */
+    --font-display:"Trebuchet MS","Comic Sans MS","Segoe UI",sans-serif;
+    --font-body:"Trebuchet MS","Segoe UI",Verdana,sans-serif;
+    --space:8px;
+    --maxw:1120px;
+    /* extra theme tokens */
+    --mint:#aef0c9;
+    --lemon:#ffe08a;
+    --grape:#c8b6ff;
+    --clay-press:
+      0 6px 12px -6px rgba(176,120,160,.5),
+      inset 0 -6px 10px rgba(176,120,160,.35),
+      inset 0 6px 10px rgba(255,255,255,.7);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% 18%,rgba(126,200,227,.18),transparent 28%),
+                     radial-gradient(circle at 88% 70%,rgba(255,143,177,.18),transparent 30%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-.01em;line-height:1.05;font-weight:700}
+  .btn{
+    display:inline-block;font-family:var(--font-display);font-weight:700;
+    font-size:17px;text-decoration:none;cursor:pointer;
+    padding:16px 30px;border:none;border-radius:30px;background:var(--surface);
+    color:var(--fg);box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s;
+  }
+  .btn:hover{transform:translateY(-3px)}
+  .btn:active{transform:translateY(2px);box-shadow:var(--clay-press)}
+  .btn--primary{background:linear-gradient(180deg,#ffa7c4,#ff7ba6);color:#fff}
+  .btn--ghost{background:linear-gradient(180deg,#fff,#f3e8f0)}
+  .tag{display:inline-block;background:linear-gradient(180deg,#d9f4ff,#bfe9fb);color:#3a7a96;
+    font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.04em;
+    padding:9px 18px;border-radius:24px;box-shadow:var(--shadow)}
+
+  /* ---- nav ---- */
+  header{background:rgba(253,238,244,.85);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50}
+  nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .logo{font-family:var(--font-display);font-size:26px;font-weight:700;display:flex;align-items:center;gap:10px}
+  .logo .dot{width:34px;height:34px;border-radius:50%;background:linear-gradient(180deg,#ffb3cd,#ff7ba6);box-shadow:var(--shadow);display:inline-block}
+  .nav-links{display:flex;gap:14px;list-style:none;font-weight:700;font-size:15px}
+  .nav-links a{text-decoration:none;padding:9px 16px;border-radius:22px;transition:.15s}
+  .nav-links a:hover{background:var(--surface);box-shadow:var(--shadow)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:60px 0 84px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(40px,7.5vw,76px);margin:20px 0 22px;color:#6a4f7a}
+  .hero h1 em{font-style:normal;background:linear-gradient(180deg,#ffe08a,#ffd05a);color:#7a5a2a;
+    padding:2px 16px;border-radius:22px;display:inline-block;box-shadow:var(--shadow)}
+  .hero p{font-size:20px;max-width:36ch;color:var(--muted);margin-bottom:32px;font-weight:600}
+  .hero-cta{display:flex;gap:18px;flex-wrap:wrap}
+  /* hero visual: clay scene */
+  .hero-art{position:relative;height:420px}
+  .clay-card{position:absolute;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+    display:flex;align-items:center;justify-content:center;font-weight:700}
+  .clay-card.main{inset:30px 20px;border-radius:40px;background:linear-gradient(180deg,#fff,#fbeef6);flex-direction:column;gap:18px}
+  .clay-shape{border-radius:50%;box-shadow:var(--shadow)}
+  .cs-a{width:120px;height:120px;background:linear-gradient(180deg,#aef0c9,#7ee0a8)}
+  .cs-b{width:90px;height:90px;border-radius:30px;background:linear-gradient(180deg,#c8b6ff,#a98fff);transform:rotate(12deg)}
+  .blob-row{display:flex;gap:18px;align-items:center}
+  .float{position:absolute;border-radius:50%;box-shadow:var(--shadow);animation:bob 4s ease-in-out infinite}
+  .f1{width:70px;height:70px;background:linear-gradient(180deg,#ffe08a,#ffd05a);top:-18px;right:30px;animation-delay:.2s}
+  .f2{width:54px;height:54px;border-radius:20px;background:linear-gradient(180deg,#7ec8e3,#5bb6d6);bottom:-10px;left:-14px;animation-delay:1.1s}
+  .f3{width:44px;height:44px;background:linear-gradient(180deg,#ff8fb1,#ff6f9d);top:40%;right:-12px;animation-delay:2s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .blob{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd9e6,#ffbcd4);opacity:.4;right:-80px;bottom:-90px;pointer-events:none}
+
+  /* ---- social proof ---- */
+  .proof{padding:24px 0 8px}
+  .proof-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 32px;
+    display:flex;align-items:center;justify-content:space-around;gap:24px;flex-wrap:wrap}
+  .proof-card .stat b{font-family:var(--font-display);font-size:30px;color:var(--accent);display:block}
+  .proof-card .stat span{font-weight:600;color:var(--muted);font-size:14px}
+
+  /* ---- section scaffold ---- */
+  section{padding:72px 0}
+  .eyebrow{font-family:var(--font-display);font-weight:700;color:var(--accent-2);font-size:14px;letter-spacing:.06em;margin-bottom:10px}
+  .sec-head{text-align:center;max-width:42ch;margin:0 auto}
+  .sec-head h2{font-size:clamp(30px,5vw,48px);color:#6a4f7a}
+  .sec-head p{font-size:18px;margin-top:14px;color:var(--muted);font-weight:600}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:52px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--surface);border-radius:var(--radius);padding:34px 30px;box-shadow:var(--shadow);text-align:center;transition:transform .15s}
+  .card:hover{transform:translateY(-6px)}
+  .card .ic{width:84px;height:84px;border-radius:28px;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);font-size:38px}
+  .card:nth-child(1) .ic{background:linear-gradient(180deg,#aef0c9,#7ee0a8)}
+  .card:nth-child(2) .ic{background:linear-gradient(180deg,#ffe08a,#ffd05a)}
+  .card:nth-child(3) .ic{background:linear-gradient(180deg,#c8b6ff,#a98fff)}
+  .card h3{font-size:23px;margin-bottom:10px;color:#6a4f7a}
+  .card p{color:var(--muted);font-weight:600;font-size:15px}
+
+  /* ---- showcase: lesson playground ---- */
+  .showcase{margin-top:52px;background:var(--surface);border-radius:46px;box-shadow:var(--shadow);padding:40px}
+  .play-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  @media(max-width:860px){.play-grid{grid-template-columns:1fr 1fr}}
+  .play{border-radius:28px;padding:24px 18px;text-align:center;box-shadow:var(--clay-press);font-weight:700}
+  .play .big{font-size:44px;display:block;margin-bottom:8px}
+  .play.p1{background:linear-gradient(180deg,#ffd9e6,#ffc2d8);color:#a64d72}
+  .play.p2{background:linear-gradient(180deg,#d9f4ff,#bfe9fb);color:#3a7a96}
+  .play.p3{background:linear-gradient(180deg,#e6ffe9,#c9f5d4);color:#3a8a55}
+  .play.p4{background:linear-gradient(180deg,#fff3d1,#ffe6a3);color:#9a7320}
+  .play small{font-weight:600;color:inherit;opacity:.8;display:block;margin-top:4px}
+
+  /* ---- testimonial ---- */
+  .quote{background:linear-gradient(180deg,#c8b6ff,#a98fff);color:#fff;border-radius:46px;box-shadow:var(--shadow);
+    padding:54px 48px;max-width:780px;margin:0 auto;text-align:center}
+  .quote p{font-family:var(--font-display);font-size:clamp(22px,3.4vw,32px);line-height:1.25;font-weight:700}
+  .quote .who{margin-top:22px;font-weight:700;font-size:15px;opacity:.92}
+
+  /* ---- CTA band ---- */
+  .cta-band{text-align:center}
+  .cta-card{background:linear-gradient(180deg,#fff,#ffeef5);border-radius:50px;box-shadow:var(--shadow);padding:54px 40px;max-width:760px;margin:0 auto}
+  .cta-band h2{font-size:clamp(32px,5.5vw,52px);color:#6a4f7a}
+  .price{display:inline-block;background:linear-gradient(180deg,#aef0c9,#7ee0a8);color:#2a6a44;border-radius:32px;box-shadow:var(--shadow);padding:26px 40px;margin:28px 0}
+  .price .big{font-family:var(--font-display);font-size:54px;line-height:1}
+  .price .big s{color:#5a9a72;font-size:26px}
+
+  /* ---- footer + specimen card ---- */
+  footer{background:linear-gradient(180deg,#6a4f7a,#574066);color:#fbeef6;padding:64px 0 30px;margin-top:24px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-display);font-size:14px;color:var(--accent);margin-bottom:14px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px;font-weight:600;font-size:15px;opacity:.85}
+  footer .logo{color:#fff}
+  .specimen{margin-top:46px;background:rgba(255,255,255,.08);border-radius:30px;padding:26px 28px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;font-size:13px;
+    box-shadow:inset 0 4px 10px rgba(255,255,255,.12),inset 0 -6px 12px rgba(0,0,0,.18)}
+  .specimen .no{font-family:var(--font-display);font-size:46px;color:var(--accent)}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .axes span{display:inline-block;background:rgba(255,255,255,.14);border-radius:16px;padding:5px 12px;margin:3px;font-size:11px;font-weight:700}
+  @media(max-width:680px){.specimen{grid-template-columns:1fr;text-align:center}}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;background:linear-gradient(180deg,#ffa7c4,#ff7ba6);
+    color:#fff;border-radius:24px;box-shadow:var(--shadow);font-family:var(--font-display);font-weight:700;
+    font-size:13px;padding:12px 18px;text-decoration:none;transition:transform .12s}
+  .atlas-badge:hover{transform:translateY(-3px)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>Plump</div>
+    <ul class="nav-links">
+      <li><a href="#features">Why Plump</a></li>
+      <li><a href="#playground">Lessons</a></li>
+      <li><a href="#love">Parents</a></li>
+      <li><a href="#join">Plans</a></li>
+    </ul>
+    <a href="#join" class="btn btn--primary">Start free</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">★ For curious kids, ages 4–8</span>
+      <h1>Learning that feels like <em>squishy play</em>.</h1>
+      <p>Plump turns letters, numbers and big feelings into soft, tappable little games your kid will beg to keep playing.</p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn--primary">Start the free trial →</a>
+        <a href="#playground" class="btn btn--ghost">Peek inside</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="float f1"></div>
+      <div class="float f2"></div>
+      <div class="float f3"></div>
+      <div class="clay-card main">
+        <div class="blob-row">
+          <div class="clay-shape cs-a"></div>
+          <div class="clay-shape cs-b"></div>
+        </div>
+        <div style="font-family:var(--font-display);font-size:22px;color:#6a4f7a">A is for Apple! 🍎</div>
+        <a class="btn btn--primary" style="pointer-events:none">Tap me!</a>
+      </div>
+    </div>
+  </div>
+  <div class="blob"></div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-card">
+      <div class="stat"><b>2.1M</b><span>happy little learners</span></div>
+      <div class="stat"><b>4.9★</b><span>App Store rating</span></div>
+      <div class="stat"><b>40+</b><span>countries playing</span></div>
+      <div class="stat"><b>100%</b><span>ad-free &amp; kid-safe</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">WHY PLUMP</p>
+      <h2>Big learning, gentle on little hands.</h2>
+      <p>Everything is designed for tiny fingers and growing brains.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="ic">🧸</div>
+        <h3>Squishy &amp; safe</h3>
+        <p>Chunky buttons made for clumsy taps, with zero ads and no sneaky purchases hiding inside.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🌱</div>
+        <h3>Grows with them</h3>
+        <p>Lessons quietly get harder as your child gets smarter, so they're always just-right challenged.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🎈</div>
+        <h3>Play first, learn always</h3>
+        <p>Phonics, counting and feelings hide inside games so joyful kids forget they're learning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="playground">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">THE PLAYGROUND</p>
+      <h2>Four squishy worlds to wander.</h2>
+    </div>
+    <div class="showcase">
+      <div class="play-grid">
+        <div class="play p1"><span class="big">🔤</span>Letter Land<small>Phonics &amp; first words</small></div>
+        <div class="play p2"><span class="big">🔢</span>Number Pond<small>Counting &amp; shapes</small></div>
+        <div class="play p3"><span class="big">🌳</span>Story Forest<small>Read-along tales</small></div>
+        <div class="play p4"><span class="big">💛</span>Feelings Hill<small>Calm &amp; kindness</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="love">
+  <div class="wrap">
+    <div class="quote">
+      <p>“My 5-year-old asks for ‘Plump time’ instead of cartoons. She learned all her letters and I never had to nag once.”</p>
+      <div class="who">— Dani R., parent of one very proud kindergartner</div>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="cta-band">
+  <div class="wrap">
+    <div class="cta-card">
+      <h2>Try Plump free for 14 days.</h2>
+      <div class="price">
+        <div class="big"><s>$12</s> $7<span style="font-size:20px">/mo</span></div>
+        <div style="font-weight:700;margin-top:6px">Whole family · cancel anytime</div>
+      </div>
+      <div>
+        <a href="#" class="btn btn--primary" style="font-size:19px;padding:18px 40px">Start playing free →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-family:var(--font-display);font-size:28px;font-weight:700">Plump</div>
+        <p style="margin-top:14px;max-width:34ch;opacity:.8;font-weight:600">A soft, squishy learning world where ages 4–8 play their way to big skills.</p>
+      </div>
+      <div><h4>App</h4><ul><li>Lessons</li><li>Worlds</li><li>Offline mode</li><li>Updates</li></ul></div>
+      <div><h4>Parents</h4><ul><li>Safety</li><li>Progress reports</li><li>Screen time</li><li>Support</li></ul></div>
+      <div><h4>Company</h4><ul><li>About</li><li>Educators</li><li>Privacy</li><li>Terms</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">05</div>
+      <div class="meta">
+        <div><b>CLAYMORPHISM</b> · Heritage family</div>
+        <div style="opacity:.85;margin-top:4px">Soft inflated 3D clay surfaces built from a triple shadow — outer drop, inset top highlight, inset bottom shade. Lineage: 2021 Dribbble claymorphism trend, plasticine &amp; 3D-render UI, Duolingo-adjacent friendliness.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Loose</span><span>Surface: Deep</span><span>Energy: Playful</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;opacity:.65;font-size:13px">Specimen 05 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="/">◈ Atlas · 05</a>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halo — Dimensional Minimal · Design Themes Atlas</title>
+<!--
+  SPECIMEN 16 · DIMENSIONAL MINIMAL · Invented family
+  Topic: smart-home / thermostat control app landing page (brand "Halo")
+  Axes — Structure: Rigid · Surface: Deep (subtle) · Energy: Quiet
+  Hybrid logic — two parents:
+    A) Neumorphism (Soft UI): elements emerge from a single monochrome surface via dual
+       light/dark soft shadows; embossed/extruded toggles, knobs, sliders; no hard borders.
+    B) International Typographic / Swiss minimalism: a strict precise grid, monochrome +
+       exactly one tiny accent, generous whitespace, tiny clean grotesk labels, no clutter.
+    The neumorphic depth is DISCIPLINED by Swiss restraint — quiet, tasteful, rigid.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#e6e9ef;            /* single soft monochrome surface (bg == surface) */
+    --surface:#e6e9ef;       /* neumorphic elements share the bg colour         */
+    --fg:#3a3f4b;            /* primary text — soft slate                       */
+    --muted:#8a909e;         /* secondary text                                  */
+    --accent:#5b7cfa;        /* the one tiny accent                             */
+    --accent-2:#9aa3b5;      /* near-neutral secondary                          */
+    --border:#c9cdd6;        /* faint hairline (used sparingly)                 */
+    --radius:22px;           /* soft rounded corners                            */
+    --shadow:8px 8px 18px #c2c6cf, -8px -8px 18px #ffffff;   /* extruded */
+    --font-display:"Helvetica Neue",Arial,"Segoe UI",sans-serif;
+    --font-body:"Helvetica Neue",Arial,"Segoe UI",sans-serif;
+    --space:8px;
+    --maxw:1080px;
+    /* extras */
+    --shadow-inset:inset 6px 6px 12px #c2c6cf, inset -6px -6px 12px #ffffff;
+    --shadow-sm:4px 4px 9px #c5c9d2, -4px -4px 9px #ffffff;
+    --light:#ffffff;
+    --dark:#c2c6cf;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.6;font-size:16px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.05;color:var(--fg)}
+  .label{font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);font-weight:600}
+
+  .btn{
+    display:inline-block;font-family:var(--font-body);font-weight:600;font-size:14px;letter-spacing:.02em;
+    cursor:pointer;padding:15px 28px;border:none;border-radius:var(--radius);
+    background:var(--surface);color:var(--fg);box-shadow:var(--shadow);
+    transition:box-shadow .18s ease,color .18s ease;
+  }
+  .btn:hover{box-shadow:var(--shadow-sm)}
+  .btn:active{box-shadow:var(--shadow-inset)}
+  .btn--primary{color:var(--accent)}
+  .btn--ghost{color:var(--muted)}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;
+    background:var(--surface);box-shadow:var(--shadow-sm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;background:var(--bg)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .logo{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em}
+  .logo .mark{width:38px;height:38px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);
+    display:flex;align-items:center;justify-content:center}
+  .logo .mark span{width:14px;height:14px;border-radius:50%;box-shadow:var(--shadow-inset)}
+  .nav-links{display:flex;gap:34px;list-style:none;font-size:14px;font-weight:500;color:var(--muted)}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:80px 0 96px}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+  .hero h1{font-size:clamp(40px,6vw,64px);margin:24px 0 22px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p{font-size:18px;color:var(--muted);max-width:38ch;margin-bottom:34px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+
+  /* ---- neumorphic thermostat dial (hero visual) ---- */
+  .dial-stage{display:flex;justify-content:center}
+  .dial-card{width:340px;padding:40px;border-radius:40px;background:var(--surface);box-shadow:var(--shadow)}
+  .dial{position:relative;width:240px;height:240px;margin:0 auto;border-radius:50%;background:var(--surface);box-shadow:var(--shadow)}
+  .dial .ring{position:absolute;inset:26px;border-radius:50%;box-shadow:var(--shadow-inset)}
+  .dial .face{position:absolute;inset:54px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);
+    display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .dial .temp{font-family:var(--font-display);font-weight:300;font-size:54px;letter-spacing:-.03em;color:var(--fg)}
+  .dial .temp sup{font-size:22px;color:var(--accent);font-weight:500;top:-18px}
+  .dial .mode{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:2px}
+  .dial .tick{position:absolute;left:50%;top:8px;width:3px;height:14px;border-radius:2px;background:var(--accent);transform-origin:50% 112px;opacity:.9}
+  .dial-foot{display:flex;justify-content:space-between;margin-top:28px}
+  .dial-foot .knob{width:46px;height:46px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+  .dial-foot .knob.on{box-shadow:var(--shadow-inset);color:var(--accent)}
+
+  /* ---- social proof strip ---- */
+  .proof{padding:44px 0}
+  .proof-inner{border-radius:var(--radius);box-shadow:var(--shadow-inset);padding:30px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .proof .label{flex:0 0 auto}
+  .proof .brands{display:flex;gap:40px;flex-wrap:wrap;align-items:center;font-weight:600;font-size:15px;color:var(--accent-2);letter-spacing:.02em}
+
+  /* ---- section scaffold ---- */
+  section{padding:90px 0}
+  .sec-head{max-width:60ch}
+  .sec-head .label{margin-bottom:16px;display:inline-block}
+  .sec-head h2{font-size:clamp(28px,4vw,42px);margin-bottom:14px}
+  .sec-head p{font-size:17px;color:var(--muted);max-width:50ch}
+
+  /* ---- features (3 cards) ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:54px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);padding:34px 30px}
+  .card .ico{width:58px;height:58px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);
+    display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:var(--accent)}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- showcase: control panel of neumorphic elements ---- */
+  .showcase{margin-top:56px;border-radius:32px;background:var(--surface);box-shadow:var(--shadow);padding:44px}
+  .panel-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  @media(max-width:860px){.panel-grid{grid-template-columns:repeat(6,1fr)}}
+  .ctl{border-radius:var(--radius);box-shadow:var(--shadow-inset);padding:26px}
+  .ctl .label{margin-bottom:18px;display:block}
+  .c-room{grid-column:span 7}
+  .c-toggles{grid-column:span 5}
+  .c-slider{grid-column:span 12}
+  @media(max-width:860px){.c-room,.c-toggles,.c-slider{grid-column:span 6}}
+  .reading{font-family:var(--font-display);font-weight:300;font-size:40px;letter-spacing:-.02em}
+  .reading sup{font-size:18px;color:var(--accent);top:-12px}
+  .reading small{display:block;font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0;margin-top:6px}
+  /* toggles */
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .toggle-row + .toggle-row{border-top:1px solid var(--border)}
+  .toggle-row span{font-size:14px;color:var(--fg);font-weight:500}
+  .toggle{width:54px;height:30px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow-inset);position:relative}
+  .toggle i{position:absolute;top:4px;width:22px;height:22px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);transition:left .2s}
+  .toggle.off i{left:4px}
+  .toggle.on{box-shadow:inset 4px 4px 8px #4a64c9, inset -4px -4px 8px #7e96ff;background:var(--accent)}
+  .toggle.on i{left:28px;box-shadow:1px 1px 3px rgba(0,0,0,.2)}
+  /* slider */
+  .slider{height:18px;border-radius:999px;box-shadow:var(--shadow-inset);position:relative;margin-top:6px}
+  .slider .fill{position:absolute;left:0;top:0;bottom:0;width:62%;border-radius:999px;background:var(--accent);opacity:.85}
+  .slider .grip{position:absolute;top:50%;left:62%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm)}
+  .slider-meta{display:flex;justify-content:space-between;margin-top:16px;font-size:13px;color:var(--muted)}
+
+  /* ---- testimonial / quote ---- */
+  .quote{border-radius:32px;box-shadow:var(--shadow-inset);padding:64px 56px;max-width:820px;margin:0 auto;text-align:center}
+  .quote p{font-family:var(--font-display);font-weight:300;font-size:clamp(22px,3vw,30px);line-height:1.4;letter-spacing:-.01em;color:var(--fg)}
+  .quote p em{font-style:normal;color:var(--accent)}
+  .quote .who{margin-top:28px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+  /* ---- CTA band ---- */
+  .cta-band{text-align:center}
+  .cta-card{border-radius:36px;background:var(--surface);box-shadow:var(--shadow);padding:72px 48px;max-width:760px;margin:0 auto}
+  .cta-card h2{font-size:clamp(30px,5vw,48px);margin-bottom:16px}
+  .cta-card h2 em{font-style:normal;color:var(--accent)}
+  .cta-card p{color:var(--muted);font-size:17px;max-width:42ch;margin:0 auto 32px}
+
+  /* ---- footer + specimen ---- */
+  footer{padding:80px 0 40px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);margin-bottom:16px;font-weight:600}
+  footer ul{list-style:none}
+  footer li{margin-bottom:11px;font-size:14px;color:var(--accent-2)}
+  footer li a:hover{color:var(--fg)}
+  .specimen{margin-top:56px;border-radius:var(--radius);box-shadow:var(--shadow-inset);padding:30px 32px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;font-size:13px}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr}}
+  .specimen .no{font-family:var(--font-display);font-weight:300;font-size:46px;color:var(--accent);letter-spacing:-.02em}
+  .specimen .meta b{color:var(--fg)}
+  .specimen .meta div:last-child{color:var(--muted);margin-top:6px;line-height:1.5}
+  .specimen .axes span{display:inline-block;border-radius:999px;box-shadow:var(--shadow-sm);padding:6px 12px;margin:3px;
+    text-transform:uppercase;font-size:10px;letter-spacing:.12em;color:var(--muted);font-weight:600}
+  .atlas-line{margin-top:26px;color:var(--muted);font-size:13px;letter-spacing:.02em}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;border-radius:999px;background:var(--surface);
+    box-shadow:var(--shadow);color:var(--accent);font-size:12px;letter-spacing:.1em;font-weight:600;
+    padding:12px 18px;text-decoration:none;transition:box-shadow .18s}
+  .atlas-badge:hover{box-shadow:var(--shadow-sm)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <span class="mark"><span></span></span>
+      Halo
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#control">Control</a></li>
+      <li><a href="#voices">Reviews</a></li>
+      <li><a href="#start">Pricing</a></li>
+    </ul>
+    <a href="#start" class="btn btn--primary">Get Halo</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>Now shipping · v3</span>
+      <h1>The thermostat that <em>quietly</em> understands your home.</h1>
+      <p>Halo learns your rhythm and tends the temperature in the background — so the only time you think about it is when you admire the dial.</p>
+      <div class="hero-cta">
+        <a href="#start" class="btn btn--primary">Order Halo — $199</a>
+        <a href="#control" class="btn btn--ghost">See the app</a>
+      </div>
+    </div>
+    <div class="dial-stage">
+      <div class="dial-card" aria-label="Halo thermostat dial">
+        <div class="dial">
+          <div class="tick" style="transform:rotate(-130deg)"></div>
+          <div class="tick" style="transform:rotate(130deg);opacity:.3"></div>
+          <div class="ring"></div>
+          <div class="face">
+            <div class="temp">21<sup>°</sup></div>
+            <div class="mode">Heating · Eco</div>
+          </div>
+        </div>
+        <div class="dial-foot">
+          <div class="knob on" title="Heat">&#9728;</div>
+          <div class="knob" title="Cool">&#10052;</div>
+          <div class="knob" title="Auto">A</div>
+          <div class="knob" title="Off">&#9211;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-inner">
+      <span class="label">Working quietly inside</span>
+      <div class="brands">
+        <span>Matter</span><span>HomeKit</span><span>Thread</span><span>Google Home</span><span>Alexa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Why Halo</span>
+      <h2>Depth you can feel, restraint you can live with.</h2>
+      <p>Three principles guide every surface in the app and every degree on the dial.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="ico">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v6m0 0a3 3 0 100 6 3 3 0 000-6zm0 6v9"/></svg>
+        </div>
+        <h3>Learns, then disappears</h3>
+        <p>After a week, Halo schedules itself around your real days. No rules to write, no menus to wander.</p>
+      </div>
+      <div class="card">
+        <div class="ico">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+        </div>
+        <h3>Reads the whole home</h3>
+        <p>Room sensors balance temperature across the house, so the bedroom is never paying for the kitchen.</p>
+      </div>
+      <div class="card">
+        <div class="ico">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.4"/></svg>
+        </div>
+        <h3>Saves without nagging</h3>
+        <p>Eco mode trims energy in the gaps you don't notice — most homes see 18% off heating in the first season.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="control">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">The control panel</span>
+      <h2>One surface. Everything emerges from it.</h2>
+      <p>Every toggle, dial and slider is pressed from the same quiet material — soft enough to be calm, dimensional enough to feel real.</p>
+    </div>
+    <div class="showcase">
+      <div class="panel-grid">
+        <div class="ctl c-room">
+          <span class="label">Living room</span>
+          <div class="reading">21<sup>°</sup><small>Target 21° · holding · feels mild</small></div>
+        </div>
+        <div class="ctl c-toggles">
+          <span class="label">Modes</span>
+          <div class="toggle-row"><span>Eco schedule</span><span class="toggle on"><i></i></span></div>
+          <div class="toggle-row"><span>Away sensing</span><span class="toggle on"><i></i></span></div>
+          <div class="toggle-row"><span>Night setback</span><span class="toggle off"><i></i></span></div>
+        </div>
+        <div class="ctl c-slider">
+          <span class="label">Whole-home target</span>
+          <div class="slider"><div class="fill"></div><div class="grip"></div></div>
+          <div class="slider-meta"><span>16°</span><span>Now 21° · Eco</span><span>26°</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="wrap">
+    <div class="quote">
+      <p>It's the first smart device that made my house feel <em>calmer</em>, not busier. I set it once and I genuinely forget it's there — which is exactly the point.</p>
+      <div class="who">— Lena Hartman · Halo owner since 2024</div>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="cta-band">
+  <div class="wrap">
+    <div class="cta-card">
+      <span class="label">Get started</span>
+      <h2 style="margin-top:14px">A quieter home is <em>one dial</em> away.</h2>
+      <p>Halo ships with everything you need and installs in about twenty minutes. Two-year warranty, thirty-day returns.</p>
+      <a href="#" class="btn btn--primary" style="padding:18px 38px;font-size:16px">Order Halo — $199</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:21px"><span class="mark"><span></span></span>Halo</div>
+        <p style="margin-top:16px;max-width:34ch;color:var(--muted);font-size:14px">Climate control that knows when to stay out of the way. Made for quiet homes.</p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="#">Halo dial</a></li><li><a href="#">Room sensors</a></li><li><a href="#">The app</a></li><li><a href="#">Compatibility</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#">Install guide</a></li><li><a href="#">Help centre</a></li><li><a href="#">Warranty</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no">16</div>
+      <div class="meta">
+        <div><b>DIMENSIONAL MINIMAL</b> · Invented family</div>
+        <div>Soft extruded surfaces emerging from one monochrome material via dual light/dark shadows, disciplined by Swiss restraint: rigid grid, one tiny accent, generous whitespace, tiny clean labels. Lineage: Neumorphism (Soft UI) × International Typographic minimalism.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Deep</span><span>Energy: Quiet</span>
+      </div>
+    </div>
+    <p class="atlas-line">Specimen 16 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="/">◈ Atlas · 16</a>
+
+</body>
+</html>

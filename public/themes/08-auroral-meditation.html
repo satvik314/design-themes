@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven — Auroral · Design Themes Atlas</title>
+<!--
+  SPECIMEN 08 · AURORAL · Invented family
+  Topic: meditation & breathing app landing page
+  Axes — Structure: Loose · Surface: Deep · Energy: Calm (very low)
+  Hybrid logic: Glassmorphism × Claymorphism.
+    - Glassmorphism contributes: frosted translucency, backdrop blur,
+      thin luminous borders, depth-through-layering over a moving
+      gradient-mesh "aurora" background.
+    - Claymorphism contributes: soft puffy panels (dual inset + outer
+      shadows), very generous radius, pillowy buttons, calm pastels.
+    The fusion = "frosted clay": panels that are BOTH see-through AND
+    softly inflated. Loose structure, deep stacked surfaces, hushed
+    low-contrast type, only slow breathing animations.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#171a2e;            /* dusk page background  */
+    --surface:rgba(255,255,255,.07); /* frosted clay panel */
+    --fg:#eef0fb;            /* primary text (soft)   */
+    --muted:#a6acce;         /* secondary text        */
+    --accent:#8fe3d3;        /* muted teal            */
+    --accent-2:#c7b3ff;      /* lavender              */
+    --border:rgba(255,255,255,.16);  /* luminous hairline */
+    --radius:34px;           /* generous calm radius  */
+    --shadow:0 18px 48px rgba(8,10,24,.45), inset 0 2px 1px rgba(255,255,255,.22), inset 0 -8px 18px rgba(8,10,24,.25);
+    --shadow-soft:0 10px 30px rgba(8,10,24,.35), inset 0 2px 1px rgba(255,255,255,.18);
+    --peach:#ffcdb6;
+    --font-display:"Avenir Next","Segoe UI",-apple-system,"Helvetica Neue",sans-serif;
+    --font-body:"Avenir Next","Segoe UI",-apple-system,"Helvetica Neue",sans-serif;
+    --space:8px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.75;font-weight:400;
+    -webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;
+  }
+  /* ---- aurora gradient-mesh background ---- */
+  .aurora{position:fixed;inset:-30% -10%;z-index:-2;filter:blur(10px);
+    background:
+      radial-gradient(40% 40% at 20% 25%, rgba(143,227,211,.40), transparent 70%),
+      radial-gradient(45% 45% at 80% 20%, rgba(199,179,255,.38), transparent 70%),
+      radial-gradient(50% 50% at 65% 80%, rgba(255,205,182,.32), transparent 70%),
+      radial-gradient(45% 45% at 25% 85%, rgba(143,227,211,.28), transparent 70%);
+    animation:drift 26s ease-in-out infinite alternate;}
+  @keyframes drift{
+    0%{transform:translate3d(-3%,-2%,0) scale(1.05) rotate(0deg)}
+    50%{transform:translate3d(4%,3%,0) scale(1.12) rotate(4deg)}
+    100%{transform:translate3d(-2%,4%,0) scale(1.08) rotate(-3deg)}
+  }
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+    background:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;line-height:1.12}
+  p{font-weight:400}
+
+  .glass{background:var(--surface);backdrop-filter:blur(22px) saturate(120%);
+    -webkit-backdrop-filter:blur(22px) saturate(120%);border:1px solid var(--border);
+    border-radius:var(--radius);box-shadow:var(--shadow)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;
+    font-size:16px;text-decoration:none;cursor:pointer;padding:16px 30px;border-radius:999px;
+    border:1px solid var(--border);color:var(--fg);
+    background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+    box-shadow:var(--shadow-soft);transition:transform .5s ease,box-shadow .5s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(8,10,24,.45), inset 0 2px 1px rgba(255,255,255,.25)}
+  .btn--primary{background:linear-gradient(180deg,rgba(143,227,211,.55),rgba(143,227,211,.25));color:#0c1322}
+  .btn--ghost{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.03))}
+  .tag{display:inline-block;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+    padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);
+    backdrop-filter:blur(12px)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;padding:14px 0;
+    backdrop-filter:blur(16px);background:rgba(23,26,46,.35);border-bottom:1px solid var(--border)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--font-display);font-size:23px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .logo .dot{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--accent));box-shadow:0 0 18px var(--accent)}
+  .nav-links{display:flex;gap:34px;list-style:none;font-size:15px;color:var(--muted)}
+  .nav-links a{text-decoration:none;transition:color .4s}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:96px 0 100px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+  .hero h1{font-size:clamp(40px,6.6vw,72px);margin:26px 0 24px;font-weight:600}
+  .hero h1 em{font-style:normal;color:var(--accent);text-shadow:0 0 30px rgba(143,227,211,.5)}
+  .hero p{font-size:19px;max-width:42ch;color:var(--muted);margin-bottom:34px}
+  .hero-cta{display:flex;gap:18px;flex-wrap:wrap}
+
+  /* breathing circle visual */
+  .breath{position:relative;display:grid;place-items:center;min-height:380px;padding:36px}
+  .breath .ring{position:absolute;border-radius:50%;border:1px solid var(--border)}
+  .breath .r1{width:300px;height:300px;background:radial-gradient(circle at 38% 32%,rgba(199,179,255,.45),rgba(143,227,211,.18) 60%,transparent 72%);
+    box-shadow:0 24px 60px rgba(8,10,24,.5), inset 0 6px 14px rgba(255,255,255,.30), inset 0 -16px 30px rgba(8,10,24,.35);
+    animation:breathe 8s ease-in-out infinite}
+  .breath .r2{width:300px;height:300px;border:1px solid rgba(255,255,255,.22);animation:breathe 8s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:scale(.78);opacity:.85}50%{transform:scale(1.05);opacity:1}}
+  .breath .label{position:relative;z-index:2;text-align:center;color:var(--fg)}
+  .breath .label .word{font-family:var(--font-display);font-size:24px;font-weight:500;letter-spacing:.04em;animation:fade 8s ease-in-out infinite}
+  .breath .label small{display:block;color:var(--muted);font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px}
+  @keyframes fade{0%,100%{opacity:.55}50%{opacity:1}}
+
+  /* ---- social proof ---- */
+  .proof{padding:34px 0}
+  .proof .glass{padding:28px 36px;display:flex;flex-wrap:wrap;gap:18px 48px;align-items:center;justify-content:center}
+  .proof .stat{text-align:center}
+  .proof .stat b{display:block;font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--accent)}
+  .proof .stat span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---- section scaffold ---- */
+  section{padding:90px 0}
+  .eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);margin-bottom:16px}
+  .sec-head{text-align:center;max-width:42ch;margin:0 auto}
+  .sec-head h2{font-size:clamp(30px,4.6vw,46px);font-weight:600}
+  .sec-head p{font-size:18px;color:var(--muted);margin-top:18px}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{padding:38px 32px;text-align:center}
+  .card .icon{width:78px;height:78px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;
+    background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.35),rgba(143,227,211,.2) 60%,transparent);
+    box-shadow:inset 0 4px 10px rgba(255,255,255,.25), inset 0 -10px 18px rgba(8,10,24,.3), 0 14px 30px rgba(8,10,24,.4)}
+  .card h3{font-size:21px;font-weight:600;margin-bottom:12px}
+  .card p{color:var(--muted);font-size:15.5px}
+
+  /* ---- showcase ---- */
+  .showcase{margin-top:56px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:860px){.showcase{grid-template-columns:1fr;padding:34px}}
+  .showcase h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;margin-bottom:16px}
+  .showcase p{color:var(--muted);margin-bottom:24px}
+  .session-list{list-style:none}
+  .session{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;margin-bottom:14px;border-radius:22px;
+    background:rgba(255,255,255,.06);border:1px solid var(--border);
+    box-shadow:inset 0 2px 1px rgba(255,255,255,.16), 0 8px 22px rgba(8,10,24,.3)}
+  .session b{font-weight:600}
+  .session span{color:var(--muted);font-size:14px}
+  .session .len{color:var(--accent)}
+
+  /* ---- testimonial ---- */
+  .quote{max-width:760px;margin:0 auto;padding:56px;text-align:center}
+  .quote p{font-family:var(--font-display);font-size:clamp(21px,3vw,30px);font-weight:500;line-height:1.4}
+  .quote .who{margin-top:26px;color:var(--muted);font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+
+  /* ---- CTA band ---- */
+  .cta-band{text-align:center}
+  .cta-band .glass{padding:72px 40px}
+  .cta-band h2{font-size:clamp(32px,5vw,52px);font-weight:600;margin-bottom:18px}
+  .cta-band p{color:var(--muted);font-size:18px;max-width:40ch;margin:0 auto 34px}
+
+  /* ---- footer + specimen ---- */
+  footer{padding:80px 0 36px;margin-top:30px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:var(--font-display);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:11px;color:var(--muted);font-size:15px}
+  footer p.lead{color:var(--muted);margin-top:16px;max-width:34ch}
+  .specimen{margin-top:54px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;font-size:14px}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr;gap:16px}}
+  .specimen .no{font-family:var(--font-display);font-size:48px;font-weight:600;color:var(--accent)}
+  .specimen .meta b{color:var(--accent-2)}
+  .specimen .meta .desc{color:var(--muted);margin-top:6px}
+  .specimen .meta .lin{color:var(--muted);margin-top:8px;font-size:13px;font-style:italic}
+  .specimen .axes span{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:5px 12px;margin:3px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .atlas-line{margin-top:26px;color:var(--muted);opacity:.7;font-size:13px}
+
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;text-decoration:none;font-size:13px;letter-spacing:.06em;
+    padding:12px 18px;border-radius:999px;color:var(--fg);border:1px solid var(--border);
+    background:rgba(255,255,255,.10);backdrop-filter:blur(18px);
+    box-shadow:0 10px 26px rgba(8,10,24,.45), inset 0 2px 1px rgba(255,255,255,.2);transition:transform .5s}
+  .atlas-badge:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>Haven</div>
+    <ul class="nav-links">
+      <li><a href="#practice">Practice</a></li>
+      <li><a href="#features">How it works</a></li>
+      <li><a href="#sessions">Sessions</a></li>
+      <li><a href="#start">Pricing</a></li>
+    </ul>
+    <a href="#start" class="btn btn--primary">Begin free</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Breathe · Settle · Rest</span>
+      <h1>Find a quiet place to <em>simply breathe.</em></h1>
+      <p>Haven is a meditation and breathing companion built for calm. No streaks to chase, no badges to earn — just slow, guided moments that meet you exactly where you are.</p>
+      <div class="hero-cta">
+        <a href="#start" class="btn btn--primary">Start your first session</a>
+        <a href="#practice" class="btn btn--ghost">Take a breath now</a>
+      </div>
+    </div>
+    <div class="glass breath" aria-hidden="true">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="label">
+        <div class="word">Breathe in</div>
+        <small>follow the circle · 8 seconds</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="practice">
+  <div class="wrap">
+    <div class="glass">
+      <div class="stat"><b>2M+</b><span>quiet minutes logged</span></div>
+      <div class="stat"><b>4.9★</b><span>App Store rating</span></div>
+      <div class="stat"><b>120+</b><span>guided sessions</span></div>
+      <div class="stat"><b>0</b><span>streaks, ever</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Why Haven feels different</p>
+      <h2>Designed to slow you down, gently.</h2>
+      <p>Three soft principles shape every screen, sound, and breath.</p>
+    </div>
+    <div class="cards">
+      <div class="glass card">
+        <div class="icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0c1322" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Unhurried by design</h3>
+        <p>Sessions begin with a full minute of nothing. We never rush you toward the next thing.</p>
+      </div>
+      <div class="glass card">
+        <div class="icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0c1322" stroke-width="1.4"><path d="M3 12c4-7 14-7 18 0-4 7-14 7-18 0z"/><circle cx="12" cy="12" r="2.4"/></svg></div>
+        <h3>Soft, not loud</h3>
+        <p>Hushed visuals and low-contrast type so nothing pulls hard at your attention.</p>
+      </div>
+      <div class="glass card">
+        <div class="icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0c1322" stroke-width="1.4"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2 4 4 0 017 2c0 5.5-7 10-7 10z"/></svg></div>
+        <h3>Kind, never pushy</h3>
+        <p>Miss a day? Nothing happens. Haven is a place to return to, not a habit to maintain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sessions">
+  <div class="wrap">
+    <div class="glass showcase">
+      <div>
+        <p class="eyebrow">A few favourites</p>
+        <h2>Short practices for long days.</h2>
+        <p>Pick a moment and let it hold you. Each session blends a calm voice, ambient texture, and a breathing pace tuned to settle the nervous system.</p>
+        <a href="#start" class="btn btn--ghost">Browse the library</a>
+      </div>
+      <ul class="session-list">
+        <li class="session"><span><b>Box Breathing</b><br><span>Slow the racing mind</span></span><span class="len">4 min</span></li>
+        <li class="session"><span><b>Evening Wind-Down</b><br><span>Let the day go</span></span><span class="len">9 min</span></li>
+        <li class="session"><span><b>Anchor &amp; Rest</b><br><span>Ground in the body</span></span><span class="len">6 min</span></li>
+        <li class="session"><span><b>One Quiet Minute</b><br><span>For when there's no time</span></span><span class="len">1 min</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="glass quote">
+      <p>“I've tried every meditation app. Haven is the first one that didn't make me feel behind. I open it to breathe — not to perform.”</p>
+      <div class="who">— Mara L., joined eight months ago</div>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="cta-band">
+  <div class="wrap">
+    <div class="glass">
+      <h2>Your calm is waiting.</h2>
+      <p>Start with seven free sessions. No card, no streaks, no pressure — only quiet, whenever you need it.</p>
+      <a href="#" class="btn btn--primary">Begin free · Haven Plus $6/mo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="dot"></span>Haven</div>
+        <p class="lead">A gentle meditation &amp; breathing companion. Made slowly, for slowing down.</p>
+      </div>
+      <div><h4>Practice</h4><ul><li>Breathing</li><li>Sleep</li><li>Focus</li><li>Daily calm</li></ul></div>
+      <div><h4>Haven</h4><ul><li>About</li><li>Our approach</li><li>Press</li><li>Contact</li></ul></div>
+      <div><h4>Quiet print</h4><ul><li>Privacy</li><li>Terms</li><li>Accessibility</li></ul></div>
+    </div>
+
+    <div class="glass specimen">
+      <div class="no">08</div>
+      <div class="meta">
+        <div><b>AURORAL</b> · Invented family</div>
+        <div class="desc">Frosted-clay panels float over a slow-shifting aurora mesh — translucent yet softly inflated, hushed and low-contrast.</div>
+        <div class="lin">Lineage: Glassmorphism × Claymorphism — glass lends the blur &amp; translucency, clay lends the puffy soft shadows &amp; generous radius.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Loose</span><span>Surface: Deep</span><span>Energy: Calm</span>
+      </div>
+    </div>
+    <p class="atlas-line">Specimen 08 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="/">◈ Atlas · 08</a>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRID — Swiss / International Typographic · Design Themes Atlas</title>
+<!--
+  SPECIMEN 04 · SWISS / INTERNATIONAL TYPOGRAPHIC · Heritage family
+  Topic: GRID, an international design conference · Zürich · 14–16 Oct 2026
+  Axes — Structure: Rigid · Surface: Flat · Energy: Calm
+  Logic: a strict mathematical grid, Helvetica/Arial only, pure black + white + one
+  red accent. Massive flush-left headlines, generous intentional whitespace, asymmetric
+  placement, tiny precise labels and numbers used as design elements. No radius, no shadows.
+  Lineage: Müller-Brockmann, the Bauhaus, Helvetica → International Typographic Style.
+-->
+<style>
+  :root{
+    /* ---- shared token spine (every Atlas page declares these) ---- */
+    --bg:#ffffff;            /* pure white page      */
+    --surface:#ffffff;       /* flat surface         */
+    --fg:#000000;            /* pure black text      */
+    --muted:#6b6b6b;         /* neutral grey         */
+    --accent:#e2231a;        /* single red accent    */
+    --accent-2:#000000;      /* black as 2nd accent  */
+    --border:#000000;        /* black rules          */
+    --radius:0px;            /* no rounding          */
+    --shadow:none;           /* no shadow            */
+    --shadow-lg:none;
+    --font-display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --font-body:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --space:8px;
+    --maxw:1180px;
+    /* theme extras */
+    --hair:1px solid #000;
+    --rule:2px solid #000;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:var(--font-body);line-height:1.4;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-weight:700;letter-spacing:-.03em;line-height:.92}
+  .label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .label--red{color:var(--accent)}
+  .num{font-variant-numeric:tabular-nums}
+  .btn{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:14px 26px;border:var(--rule);background:var(--fg);color:#fff;cursor:pointer;transition:background .12s,color .12s}
+  .btn:hover{background:var(--accent);border-color:var(--accent)}
+  .btn--ghost{background:#fff;color:var(--fg)}
+  .btn--ghost:hover{background:var(--fg);color:#fff;border-color:var(--fg)}
+
+  /* ---- nav ---- */
+  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:var(--rule)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-size:22px;font-weight:700;letter-spacing:-.04em}
+  .logo b{color:var(--accent)}
+  .nav-links{display:flex;gap:32px;list-style:none;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .nav-links a:hover{color:var(--accent)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---- hero ---- */
+  .hero{border-bottom:var(--rule);padding:0}
+  .hero-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0}
+  .hero-main{grid-column:1 / 9;padding:64px 32px 56px 0;position:relative}
+  .hero-side{grid-column:9 / 13;border-left:var(--rule);padding:64px 0 56px 32px;display:flex;flex-direction:column;justify-content:space-between}
+  @media(max-width:860px){.hero-main{grid-column:1/13;padding-right:0;border-bottom:var(--hair)}.hero-side{grid-column:1/13;border-left:none;padding-left:0;padding-top:40px}}
+  .hero .meta-row{display:flex;gap:40px;margin-bottom:40px}
+  .hero .meta-row div span{display:block}
+  .hero h1{font-size:clamp(56px,12vw,148px);text-transform:uppercase}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .sub{font-size:19px;max-width:34ch;margin-top:30px;color:var(--fg);font-weight:400}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  /* rotated red typographic element */
+  .redmark{position:absolute;right:-8px;top:50px;width:90px;height:90px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;transform:rotate(12deg)}
+  .redmark span{color:#fff;font-size:13px;font-weight:700;letter-spacing:.1em;transform:rotate(-12deg);text-align:center;line-height:1.1}
+  .hero-side .big-no{font-size:120px;font-weight:700;line-height:.8;letter-spacing:-.04em}
+  .hero-side .big-no em{font-style:normal;color:var(--accent)}
+  .hero-side .stack span{display:block;font-size:14px;border-top:var(--hair);padding:10px 0}
+  .hero-side .stack span:last-child{border-bottom:var(--hair)}
+
+  /* ---- social proof / numeric strip ---- */
+  .strip{border-bottom:var(--rule);background:var(--fg);color:#fff}
+  .strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  @media(max-width:760px){.strip .wrap{grid-template-columns:1fr 1fr}}
+  .strip .cell{padding:30px 24px 30px 0;border-right:1px solid rgba(255,255,255,.3)}
+  .strip .cell:last-child{border-right:none}
+  .strip .big{font-size:46px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .strip .big em{font-style:normal;color:var(--accent)}
+  .strip .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;color:rgba(255,255,255,.7)}
+
+  /* ---- section scaffold ---- */
+  section{padding:84px 0;border-bottom:var(--rule)}
+  .sec-head{display:grid;grid-template-columns:repeat(12,1fr);gap:0;align-items:end;margin-bottom:8px}
+  .sec-head .idx{grid-column:1/2;font-size:13px;font-weight:700;color:var(--accent)}
+  .sec-head .h{grid-column:2/9}
+  .sec-head h2{font-size:clamp(32px,5.5vw,64px);text-transform:uppercase}
+  .sec-head .note{grid-column:9/13;font-size:14px;color:var(--muted);align-self:end;text-align:left}
+  @media(max-width:860px){.sec-head{grid-template-columns:1fr}.sec-head .idx,.sec-head .h,.sec-head .note{grid-column:1}.sec-head .note{margin-top:16px}}
+
+  /* ---- features ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:var(--rule)}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{padding:34px 28px 34px 0;border-right:var(--hair)}
+  .card:last-child{border-right:none;padding-right:0}
+  @media(max-width:860px){.card{border-right:none;border-bottom:var(--hair);padding-right:0}}
+  .card .n{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:24px}
+  .card h3{font-size:23px;text-transform:uppercase;margin-bottom:12px}
+  .card p{color:var(--muted);font-size:15px;max-width:32ch}
+
+  /* ---- showcase / programme grid ---- */
+  .programme{margin-top:56px;border-top:var(--rule)}
+  .slot{display:grid;grid-template-columns:repeat(12,1fr);gap:0;border-bottom:var(--hair);align-items:baseline;padding:22px 0}
+  .slot .time{grid-column:1/3;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+  .slot .title{grid-column:3/9;font-size:21px;font-weight:700;letter-spacing:-.02em}
+  .slot .speaker{grid-column:9/12;font-size:14px;color:var(--muted)}
+  .slot .room{grid-column:12/13;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-align:right}
+  @media(max-width:860px){.slot{grid-template-columns:1fr 3fr}.slot .time{grid-column:1}.slot .title{grid-column:2}.slot .speaker{grid-column:1/3;margin-top:6px}.slot .room{grid-column:1/3;text-align:left;margin-top:4px}}
+
+  /* ---- testimonial ---- */
+  .quote{display:grid;grid-template-columns:repeat(12,1fr);gap:0}
+  .quote .mark{grid-column:1/2;font-size:90px;font-weight:700;color:var(--accent);line-height:.7}
+  .quote .body{grid-column:2/11}
+  @media(max-width:860px){.quote .mark{grid-column:1}.quote .body{grid-column:1}}
+  .quote p{font-size:clamp(24px,3.6vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.08}
+  .quote .who{margin-top:26px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .quote .who em{font-style:normal;color:var(--accent)}
+
+  /* ---- CTA band / registration ---- */
+  .cta-band{background:var(--accent);color:#fff;border-bottom:var(--rule)}
+  .cta-band .wrap{display:grid;grid-template-columns:repeat(12,1fr);gap:0;align-items:end}
+  .cta-band .h{grid-column:1/8}
+  .cta-band h2{font-size:clamp(34px,6vw,76px);text-transform:uppercase;color:#fff}
+  .cta-band .pricing{grid-column:8/13;border-left:2px solid #fff;padding-left:32px}
+  @media(max-width:860px){.cta-band .h{grid-column:1/13}.cta-band .pricing{grid-column:1/13;border-left:none;border-top:2px solid #fff;padding-left:0;padding-top:24px;margin-top:32px}}
+  .cta-band .ticket{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.4);padding:12px 0;font-size:15px}
+  .cta-band .ticket b{font-variant-numeric:tabular-nums}
+  .cta-band .btn{background:#fff;color:var(--accent);border-color:#fff;margin-top:22px}
+  .cta-band .btn:hover{background:#000;color:#fff;border-color:#000}
+
+  /* ---- footer + specimen card ---- */
+  footer{padding:64px 0 30px;background:#fff}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;border-top:var(--rule);padding-top:36px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px;font-size:14px;color:var(--muted)}
+  .specimen{margin-top:48px;border:var(--rule);padding:24px 26px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;font-size:13px}
+  @media(max-width:760px){.specimen{grid-template-columns:1fr}}
+  .specimen .no{font-size:48px;font-weight:700;color:var(--accent);line-height:.8;letter-spacing:-.04em}
+  .specimen .meta b{color:var(--accent)}
+  .specimen .meta .desc{color:var(--muted);margin-top:6px;line-height:1.5}
+  .specimen .axes span{display:inline-block;border:1px solid var(--fg);padding:4px 10px;margin:3px 3px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .atlas-badge{position:fixed;right:18px;bottom:18px;z-index:60;background:var(--fg);color:#fff;border:2px solid var(--fg);
+    font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:11px 15px;text-decoration:none}
+  .atlas-badge:hover{background:var(--accent);border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">GRID<b>.</b></div>
+    <ul class="nav-links">
+      <li><a href="#about">Conference</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#proof">Speakers</a></li>
+      <li><a href="#register">Tickets</a></li>
+    </ul>
+    <a href="#register" class="btn">Register</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <div class="redmark"><span>14–16<br>OCT<br>2026</span></div>
+      <div class="meta-row">
+        <div><span class="label label--red">Location</span><span class="label" style="margin-top:6px">Zürich, CH</span></div>
+        <div><span class="label label--red">Edition</span><span class="label" style="margin-top:6px">No. 09</span></div>
+        <div><span class="label label--red">Languages</span><span class="label" style="margin-top:6px">EN / DE</span></div>
+      </div>
+      <h1>An <em>international</em> design conference</h1>
+      <p class="sub">Three days on systems, typography and the discipline of form. For people who believe the grid is an argument, not a decoration.</p>
+      <div class="hero-cta">
+        <a href="#register" class="btn">Get a ticket →</a>
+        <a href="#programme" class="btn btn--ghost">View programme</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="big-no num">0<em>9</em></div>
+      <div class="stack">
+        <span>3 days · 2 stages</span>
+        <span>32 speakers</span>
+        <span>1,400 attendees</span>
+        <span>14 — 16 October 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="cell"><div class="big num"><em>32</em></div><div class="lbl">Speakers</div></div>
+    <div class="cell"><div class="big num">18</div><div class="lbl">Countries</div></div>
+    <div class="cell"><div class="big num">09</div><div class="lbl">Editions strong</div></div>
+    <div class="cell"><div class="big num">1<em>4</em>00</div><div class="lbl">Attendees</div></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx num">01</div>
+      <div class="h"><h2>What GRID is for</h2></div>
+      <div class="note">A working conference, not a spectacle. Talks are 30 minutes, slides are functional, and the coffee is genuinely good.</div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="n num">01</div>
+        <h3>Systems<br>over styles</h3>
+        <p>Sessions on type scales, modular grids and constraint-driven design — the structures that outlast a trend.</p>
+      </div>
+      <div class="card">
+        <div class="n num">02</div>
+        <h3>Practice<br>in the open</h3>
+        <p>Working designers show real files, real decisions and the editing that happened off-screen.</p>
+      </div>
+      <div class="card">
+        <div class="n num">03</div>
+        <h3>One shared<br>vocabulary</h3>
+        <p>Print, screen and motion in one room, speaking the same precise language of measure and rhythm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programme">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx num">02</div>
+      <div class="h"><h2>Day one</h2></div>
+      <div class="note">Wednesday 14 October · Stage A, Toni-Areal. Full three-day programme online.</div>
+    </div>
+    <div class="programme">
+      <div class="slot"><div class="time num">09:30</div><div class="title">The Grid as Argument</div><div class="speaker">Müller-Brockmann Lecture</div><div class="room">A</div></div>
+      <div class="slot"><div class="time num">10:45</div><div class="title">Type at the Scale of Cities</div><div class="speaker">Lucie Ferreira</div><div class="room">A</div></div>
+      <div class="slot"><div class="time num">13:00</div><div class="title">Designing the Invisible System</div><div class="speaker">Kenji Aoyama</div><div class="room">B</div></div>
+      <div class="slot"><div class="time num">14:30</div><div class="title">Numbers as Form</div><div class="speaker">Petra Lindqvist</div><div class="room">A</div></div>
+      <div class="slot"><div class="time num">16:00</div><div class="title">Workshop — Build a Modular Scale</div><div class="speaker">Studio Reichmann</div><div class="room">C</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="quote">
+      <div class="mark">“</div>
+      <div class="body">
+        <p>GRID is the only conference where the slides could be framed and hung on the wall. You leave with a system, not a souvenir.</p>
+        <div class="who">— Petra Lindqvist · <em>Type Director, Atlas Foundry</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register" class="cta-band">
+  <div class="wrap">
+    <div class="h">
+      <h2>Register for<br>edition 09</h2>
+    </div>
+    <div class="pricing">
+      <div class="ticket"><span>Early bird · until 31 Jul</span><b class="num">CHF 290</b></div>
+      <div class="ticket"><span>Standard</span><b class="num">CHF 390</b></div>
+      <div class="ticket"><span>Student</span><b class="num">CHF 140</b></div>
+      <a href="#" class="btn">Reserve your seat →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="font-size:24px">GRID<b>.</b></div>
+        <p style="margin-top:14px;max-width:34ch;color:var(--muted);font-size:14px">An international design conference on systems, typography and form. Zürich · 14–16 October 2026.</p>
+      </div>
+      <div><h4>Event</h4><ul><li>Programme</li><li>Speakers</li><li>Venue</li><li>Travel</li></ul></div>
+      <div><h4>Info</h4><ul><li>About</li><li>Sponsors</li><li>Press</li><li>Archive</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Terms</li><li>Privacy</li><li>Code of conduct</li></ul></div>
+    </div>
+
+    <div class="specimen">
+      <div class="no num">04</div>
+      <div class="meta">
+        <div><b>SWISS / INTERNATIONAL TYPOGRAPHIC</b> · Heritage family</div>
+        <div class="desc">A strict mathematical grid in black, white and one red, with massive flush-left Helvetica, intentional whitespace and numbers used as form. Lineage: Müller-Brockmann, Josef Müller, Helvetica, the Bauhaus → the International Typographic Style.</div>
+      </div>
+      <div class="axes">
+        <span>Structure: Rigid</span><span>Surface: Flat</span><span>Energy: Calm</span>
+      </div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted);font-size:13px">Specimen 04 of the Design Themes Atlas · one skeleton, many skins.</p>
+  </div>
+</footer>
+
+<a class="atlas-badge" href="/">◈ Atlas · 04</a>
+
+</body>
+</html>
