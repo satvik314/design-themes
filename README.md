@@ -7,7 +7,21 @@ structural skeleton** and the **same set of CSS design tokens** — the only
 thing that changes between them is how far each knob is turned. A "theme",
 here, is a *coordinate*, not a coincidence.
 
-Open [`index.html`](index.html) to browse the gallery.
+This is a **Next.js (App Router)** project. The gallery is a React page; the 17
+specimens are self-contained static HTML files served from `public/themes`.
+
+### Run it locally
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+```
+
+### Deploy to Vercel
+
+Push to GitHub and import the repo at [vercel.com/new](https://vercel.com/new).
+Vercel auto-detects Next.js — no configuration needed. The gallery is served at
+`/` and each specimen at `/themes/<name>.html`.
 
 ---
 
@@ -124,24 +138,32 @@ and resolves the tension:
 
 ## Technical notes
 
-- **17 files**, one per specimen, in [`themes/`](themes/).
+- **17 specimens**, one `.html` file each, in [`public/themes/`](public/themes/).
 - Each is a **single self-contained `.html` file**: all CSS is inline, there
   are **no external assets, no web fonts, no images and no JavaScript**. Every
   page renders fully offline. All decoration is pure CSS or inline SVG.
 - Fonts are web-safe stacks chosen per theme (grotesk, Helvetica, Georgia,
   monospace, etc.) so nothing depends on the network.
-- Open any file directly in a browser, or start from
-  [`index.html`](index.html).
+- The gallery at `/` is a React Server Component ([`app/page.js`](app/page.js))
+  whose styles live in [`app/globals.css`](app/globals.css). The specimens are
+  intentionally left as raw HTML so each can own its full styling with zero
+  interference.
 
 ## Structure
 
 ```
 .
-├── index.html              # gallery + the philosophy, visualised
-├── README.md               # this file
-└── themes/
-    ├── 01-neo-brutalism-ai-course.html
-    ├── 02-corporate-memphis-payroll.html
-    ├── ...
-    └── 17-terrarium-herbal-tea.html
+├── app/
+│   ├── layout.js           # root layout + metadata
+│   ├── page.js             # the gallery / index (philosophy + specimen grid)
+│   └── globals.css         # gallery styles
+├── public/
+│   └── themes/             # the 17 self-contained specimen pages
+│       ├── 01-neo-brutalism-ai-course.html
+│       ├── 02-corporate-memphis-payroll.html
+│       ├── ...
+│       └── 17-terrarium-herbal-tea.html
+├── next.config.mjs
+├── package.json
+└── README.md               # this file
 ```
